@@ -1,21 +1,22 @@
 # Установка Prolog
 
-## Windows:
+## Windows
   - скачать дистрибутив https://www.swi-prolog.org/download/stable/bin/swipl-9.2.5-1.x64.exe.envelope
   - (рекомендуется) установить WSL (windows Subsystem for Linux) и следовать инструкциям установки для Linux
 
-## Linux:
+## Linux
   - sudo apt-add-repository ppa:swi-prolog/stable
   - sudo apt-get update
   - sudo apt-get install swi-prolog
 
-## MacOS:
+## MacOS
   - brew install swi-prolog
 
 ### Ссылки 
   
-  Основной сайт:
+  Основной сайт  
   https://www.swi-prolog.org/
 
-  Среда для web:
+  Среда для web  
   https://swish.swi-prolog.org/
+  
