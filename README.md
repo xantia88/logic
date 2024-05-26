@@ -9,9 +9,9 @@
 Один из основных языков визуального проектирования архитектуры предприятия ArchiMate, использующийся в методологии Togaf полностью состоит из сущностей, аттрибутов и отношений.
 
 https://pubs.opengroup.org/architecture/togaf9-doc/arch/chap30.html  
-30.5 Content Metamodel Entities
-30.6 Content Metamodel Attributes
-30.7 Metamodel Relationships
+30.5 Content Metamodel Entities  
+30.6 Content Metamodel Attributes  
+30.7 Metamodel Relationships  
 
 Задачами данного проекта являются:
 
