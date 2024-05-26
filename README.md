@@ -12,8 +12,10 @@
 ## MacOS:
   - brew install swi-prolog
 
-Основной сайт: 
-https://www.swi-prolog.org/
+### Ссылки 
+  
+  Основной сайт:   
+  https://www.swi-prolog.org/
 
-Среда для web:
-https://swish.swi-prolog.org/
+  Среда для web:
+  https://swish.swi-prolog.org/
