@@ -2,19 +2,19 @@
 % Predicates needed for user interaction (input)
 % -----------------------------------------------------
 
-get_string(Value) :-
-    write("Enter string value:"), nl,
+read_string(Message, Value) :-
+    write(Message), nl,
     read(Y),
     Value = Y.
 
-get_number(Value) :-
+read_number(Message, Value) :-
     repeat,
-    write("Enter number value:"), nl,
+    write(Message), nl,
     read(Y),
     (
         (integer(Y) ; float(Y)) ->
         Value = Y, !
-        ; write("Error: not a number"), nl, fail
+        ; write("Error: not a number. Try again."), nl, fail
     ).
 
 list(L) :-
@@ -22,15 +22,15 @@ list(L) :-
 list(_) :-
     true.
 
-get_item(List, Id, Value) :-
+select_item(Message, List, Id) :-
     repeat,
-    write("Select an item from the list"), nl,
+    write(Message), nl,
     list(List),
     read(Y),
     (
-        call(List, Y, L) ->
-        Id = Y, Value = L, !
-        ; write("Error: no such item"), nl, fail
+        call(List, Y, _) ->
+        Id = Y, !
+        ; write("Error: no such item. Try again."), nl, fail
     ).
 
 % Predicates needed for user interaction (output)
@@ -64,15 +64,14 @@ external(Id) :-
 % -----------------------------------------------------
 
 system :-
-    get_number(Id), 
-    get_string(Name), 
-    get_item(location, Location, _),
+    read_number("ID", Id), 
+    read_string("Name", Name), 
+    select_item("Location", location, Location),
     (
         external(Location) ->
-        get_string(Description),
-        get_item(ownership, Ownership, _),
+        read_string("Description", Description),
+        select_item("Ownership", ownership, Ownership),
         dump(Id, Name, Location, Description, Ownership), !
         ; dump(Id, Name, Location)
     ).
-
 
