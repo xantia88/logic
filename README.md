@@ -19,4 +19,10 @@
 
   Среда для web  
   https://swish.swi-prolog.org/
+
+  Хорошая книга:
+  Язык PROLOG (Пролог): алгоритмы искусственного интеллекта, Иван Братко
+  https://www.williamspublishing.com/Books/978-5-8459-0664-9.html
+  
+  
   
