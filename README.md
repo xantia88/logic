@@ -2,7 +2,7 @@
 
 ## Windows
   - скачать дистрибутив https://www.swi-prolog.org/download/stable/bin/swipl-9.2.5-1.x64.exe.envelope
-  - (рекомендуется) установить WSL (windows Subsystem for Linux) и следовать инструкциям установки для Linux
+  - (рекомендуется) установить WSL (Windows Subsystem for Linux) и следовать инструкциям установки для Linux
 
 ## Linux
   - sudo apt-add-repository ppa:swi-prolog/stable
