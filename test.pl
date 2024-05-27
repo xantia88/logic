@@ -1,3 +1,12 @@
+% Predicates needed to validate model
+% -----------------------------------------------------
+check(X, Y):-
+    system(X),
+    (
+        component(X, Y) ->
+        write("ok"), !
+        ; write("not ok")
+    ).
 
 % Predicates needed for user interaction (input)
 % -----------------------------------------------------
@@ -41,10 +50,11 @@ dump(Id, Name, Location) :-
     write("Name="), write(Name), nl,
     write("Location="), write(Location), nl.
 
-dump(Id, Name, Location, Description, Ownership) :-
+dump(Id, Name, Location, Description, Ownership, Lifecycle) :-
     dump(Id, Name, Location),
     write("Description="), write(Description), nl,
-    write("Ownership="), write(Ownership), nl.
+    write("Ownership="), write(Ownership), nl,
+    write("Lifecycle="), write(Lifecycle), nl.
 
 % Model configuration
 % -----------------------------------------------------
@@ -56,6 +66,13 @@ ownership(1, "source code").
 ownership(2, "instance").
 ownership(3, "SaaS").
 ownership(4, "Partner's system").
+
+lifecycle(1, "draft").
+lifecycle(2, "development").
+lifecycle(3, "deployment").
+lifecycle(4, "test").
+lifecycle(5, "production").
+lifecycle(6, "archive").
 
 external(Id) :-
     Id = 2.    
@@ -71,7 +88,21 @@ system :-
         external(Location) ->
         read_string("Description", Description),
         select_item("Ownership", ownership, Ownership),
-        dump(Id, Name, Location, Description, Ownership), !
+        select_item("Lifecycle", lifecycle, Lifecycle),
+        dump(Id, Name, Location, Description, Ownership, Lifecycle), !
         ; dump(Id, Name, Location)
     ).
+
+/*
+system("x").
+component("x", "front").
+component("x", "back").
+component("x", "database").
+
+validate model (get all gaps):
+
+check("x", "front"), check("x", "back"), check("x", "hjaskhasjk").
+
+
+*/
 
