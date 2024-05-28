@@ -31,13 +31,13 @@ https://pubs.opengroup.org/architecture/togaf9-doc/arch/chap30.html
 
 ## Linux
 ```
-  $> sudo apt-add-repository ppa:swi-prolog/stable
-  $> sudo apt-get update
-  $> sudo apt-get install swi-prolog
+  sudo apt-add-repository ppa:swi-prolog/stable
+  sudo apt-get update
+  sudo apt-get install swi-prolog
 ```
 ## MacOS
 ```
-  $> brew install swi-prolog
+  brew install swi-prolog
 ```
 После установки не требуется дополнительной настройки. 
 
@@ -45,15 +45,18 @@ https://pubs.opengroup.org/architecture/togaf9-doc/arch/chap30.html
 
 Из командной строки или терминала, в том числе в любой IDE:  
 ```
-  $> swipl
+  swipl
 ```
 Или:
 ```
-$> swipl -f filename
+  swipl -f filename
 ```
 где filename - текстовый файл с инструкциями Prolog, содержащий базу знаний
 
-Для выхода из Prolog введите команду halt. 
+Для выхода из Prolog введите команду halt. (Каждая команда заканчивается точкой) 
+```
+  halt.
+```
 
 ### Ссылки 
   
