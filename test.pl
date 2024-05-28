@@ -1,11 +1,34 @@
+
+:- discontiguous(goal/1).
+:- discontiguous(description/2).
+:- discontiguous(horizon/1).
+:- discontiguous(plan/2).
+
 % Predicates needed to validate model
 % -----------------------------------------------------
-check(X, Y):-
-    system(X),
+
+validate(T, ID):-
     (
-        component(X, Y) ->
-        write("ok"), !
-        ; write("not ok")
+        call(T, ID, _) ->
+        write(T), write(" ok"), nl, !
+        ; write("no "), write(T), nl
+    ).
+
+validate_goal_1(X):-
+    goal(X),
+    description(X, _),
+    horizon(X, _),
+    plan(X, _).
+
+validate_goal_2(X):-
+    write("goal "), write(X), 
+    (
+        goal(X) ->
+        write(" defined"), nl,
+        validate(description, X),
+        validate(horizon, X),
+        validate(plan, X), !
+        ; write(" not defined")
     ).
 
 % Predicates needed for user interaction (input)
@@ -93,16 +116,10 @@ system :-
         ; dump(Id, Name, Location)
     ).
 
-/*
-system("x").
-component("x", "front").
-component("x", "back").
-component("x", "database").
-
-validate model (get all gaps):
-
-check("x", "front"), check("x", "back"), check("x", "hjaskhasjk").
+goal(z).
+description(z, "description here").
+horizon(z, "2024Q4").
+%plan(z, "2024Q3").
 
 
-*/
 
