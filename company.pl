@@ -17,11 +17,11 @@ realize(strategy2, goal1).
 task(task1).
 description(task1, "task 1 description here").
 deadline(task1, "2024Q1").
-realize(task1, strategy1).
+%realize(task1, strategy1).
 
 task(task2).
 description(task2, "task 2 description here").
 deadline(task2, "2023Q3").
-%realize(task2, strategy2).
-
+status(task2, "Запланировано").
+realize(task2, strategy2).
 
