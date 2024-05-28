@@ -14,13 +14,21 @@ validate(T, ID):-
         ; write("no "), write(T), nl
     ).
 
-validate_goal_1(X):-
+valid_goal(X):-
+    goal(X),
+    (
+        validate_goal(X) ->
+        write("all ok"), !
+        ; log_goal(X), fail
+    ).
+
+validate_goal(X):-
     goal(X),
     description(X, _),
     horizon(X, _),
     plan(X, _).
 
-validate_goal_2(X):-
+log_goal(X):-
     write("goal "), write(X), 
     (
         goal(X) ->
