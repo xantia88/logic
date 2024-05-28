@@ -41,9 +41,17 @@ https://pubs.opengroup.org/architecture/togaf9-doc/arch/chap30.html
 
 # Запуск Prolog
 
-Из командной строки или терминала:  
+Из командной строки или терминала, в том числе в любой IDE:  
 
 $> swipl 
+
+Или:
+
+$> swipl -f filename
+
+где filename - текстовый файл с инструкциями Prolog, содержащий базу знаний
+
+Для выхода из Prolog введите команду halt. 
 
 ### Ссылки 
   
