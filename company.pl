@@ -1,9 +1,12 @@
+% Подключить модель  родительской компании
 :-consult("parent.pl").
 
+% Стратегические цели (Р01)
 goal(goal1).
 description(goal1, "goal 1 description here").
 horizon(goal1, "2024Q4").
 
+% Стратегические задачи (Р02)
 strategy(strategy1).
 description(strategy1, "strategy 1 description here").
 horizon(strategy1, "2025Q1").
@@ -14,6 +17,7 @@ description(strategy2, "strategy 2 description here").
 horizon(strategy2, "2024Q3").
 realize(strategy2, goal1).
 
+% Задачи и планы (Р09)
 task(task1).
 description(task1, "task 1 description here").
 deadline(task1, "2024Q1").
