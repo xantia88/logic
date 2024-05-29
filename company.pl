@@ -4,7 +4,11 @@
 % Стратегические цели (Р01)
 goal(goal1).
 description(goal1, "goal 1 description here").
-horizon(goal1, "2024Q4").
+%horizon(goal1, "2024Q4").
+
+goal(goal2).
+description(goal2, "zzz").
+horizon(goal2, "zzz").
 
 % Стратегические задачи (Р02)
 strategy(strategy1).
@@ -15,13 +19,14 @@ realize(strategy1, goal1).
 strategy(strategy2).
 description(strategy2, "strategy 2 description here").
 horizon(strategy2, "2024Q3").
-realize(strategy2, goal1).
+%realize(strategy2, goal1).
 
 % Задачи и планы (Р09)
 task(task1).
 description(task1, "task 1 description here").
 deadline(task1, "2024Q1").
-%realize(task1, strategy1).
+status(task1, "Запланировано").
+realize(task1, strategy1).
 
 task(task2).
 description(task2, "task 2 description here").
