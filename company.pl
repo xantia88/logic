@@ -4,7 +4,7 @@
 % Стратегические цели (Р01)
 goal(goal1).
 description(goal1, "goal 1 description here").
-%horizon(goal1, "2024Q4").
+horizon(goal1, "2024Q4").
 
 goal(goal2).
 description(goal2, "zzz").
@@ -14,7 +14,7 @@ horizon(goal2, "zzz").
 strategy(strategy1).
 description(strategy1, "strategy 1 description here").
 horizon(strategy1, "2025Q1").
-realize(strategy1, goal1).
+%realize(strategy1, goal1).
 
 strategy(strategy2).
 description(strategy2, "strategy 2 description here").
@@ -53,4 +53,3 @@ task:-
     select_item("Статус", task_status, Status),
     select_item("Стратегия", strategy, description, Strategy),
     wtask(Id, Description, Deadline, Status, Strategy).
-
