@@ -34,3 +34,23 @@ deadline(task2, "2023Q3").
 status(task2, "Запланировано").
 realize(task2, strategy2).
 
+:-consult("io.pl").
+
+out(Name, Value):-
+    write(Name), write(" = "), write(Value), nl.
+
+wtask(Id, Description, Deadline, Status, Strategy):-
+    out("id", Id),
+    out("description", Description),
+    out("deadline", Deadline),
+    out("status", Status),
+    out("strategy", Strategy).
+
+task:-
+    read_string("Код задачи", Id),
+    read_string("Описание", Description),
+    read_string("Срок", Deadline),
+    select_item("Статус", task_status, Status),
+    select_item("Стратегия", strategy, description, Strategy),
+    wtask(Id, Description, Deadline, Status, Strategy).
+
