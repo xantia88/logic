@@ -15,6 +15,17 @@ task_status(2, "В процессе").
 task_status(3, "Завершено").
 task_status(4, "Отменено").
 
+com_goal(X):-
+    valid_goal(X),
+    realize(S, X), com_strategy(S).
+
+com_strategy(X):-
+    valid_strategy(X),
+    realize(T, X), com_task(T).
+
+com_task(X):-
+    valid_task(X).
+
 % Проверка структуры целей (Р01)
 valid_goal(X):-
     goal(X), % должна быть определена как цель

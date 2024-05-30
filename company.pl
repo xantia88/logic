@@ -12,14 +12,14 @@ horizon(goal2, "zzz").
 
 % Стратегические задачи (Р02)
 strategy(strategy1).
-description(strategy1, "strategy 1 description here").
+%description(strategy1, "strategy 1 description here").
 horizon(strategy1, "2025Q1").
-%realize(strategy1, goal1).
+realize(strategy1, goal1).
 
 strategy(strategy2).
 description(strategy2, "strategy 2 description here").
 horizon(strategy2, "2024Q3").
-%realize(strategy2, goal1).
+realize(strategy2, goal1).
 
 % Задачи и планы (Р09)
 task(task1).
@@ -53,3 +53,4 @@ task:-
     select_item("Статус", task_status, Status),
     select_item("Стратегия", strategy, description, Strategy),
     wtask(Id, Description, Deadline, Status, Strategy).
+
