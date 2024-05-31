@@ -2,6 +2,7 @@
 :-consult("parent.pl").
 
 % Стратегические цели (Р01)
+% ----------------------------------------------------------------------
 goal(goal1).
 description(goal1, "goal 1 description here").
 horizon(goal1, "2024Q4").
@@ -11,6 +12,7 @@ description(goal2, "zzz").
 horizon(goal2, "zzz").
 
 % Стратегические задачи (Р02)
+% ----------------------------------------------------------------------
 strategy(strategy1).
 %description(strategy1, "strategy 1 description here").
 horizon(strategy1, "2025Q1").
@@ -22,6 +24,7 @@ horizon(strategy2, "2024Q3").
 realize(strategy2, goal1).
 
 % Задачи и планы (Р09)
+% ----------------------------------------------------------------------
 task(task1).
 description(task1, "task 1 description here").
 deadline(task1, "2024Q1").
@@ -34,17 +37,44 @@ deadline(task2, "2023Q3").
 status(task2, "Запланировано").
 realize(task2, strategy2).
 
+% Клиенты (Р03)
+% ----------------------------------------------------------------------
+client(client1).
+description(client1, "client 1 description").
+type(client1, "Физические лица").
+count(client1, 100).
+
+% Продукты (Р04)
+% ----------------------------------------------------------------------
+product(product1).
+%name(product1, "this product 1 name").
+description(product1, "this is product 1 description").
+status(product1, "Используется").
+comments("product1", "these are the comments, risks, problems").
+
+product(product2).
+name(product2, "this product 2 name").
+description(product2, "this is product 2 description").
+status(product2, "Используется").
+comments("product2", "these are the comments, risks, problems").
+
+% Каналы (Р05)
+% ----------------------------------------------------------------------
+channel(channel1).
+name(channel1, "this is channel1 name").
+type(channel1, "Цифровой").
+location(channel1, "Внутренний").
+description(channel1, "this is channel 1 description").
+status(channel1, "Создается").
+security(channel1, "SSL").
+%product(channel1, product1).
+%product(channel1, product2).
+%client(channel1, client1).
+
 :-consult("io.pl").
 
 out(Name, Value):-
     write(Name), write(" = "), write(Value), nl.
-
-wtask(Id, Description, Deadline, Status, Strategy):-
-    out("id", Id),
-    out("description", Description),
-    out("deadline", Deadline),
-    out("status", Status),
-    out("strategy", Strategy).
 
 task:-
     read_string("Код задачи", Id),
@@ -52,5 +82,30 @@ task:-
     read_string("Срок", Deadline),
     select_item("Статус", task_status, Status),
     select_item("Стратегия", strategy, description, Strategy),
-    wtask(Id, Description, Deadline, Status, Strategy).
+    write("---------------------"), nl,
+    out("id", Id),
+    out("description", Description),
+    out("deadline", Deadline),
+    out("status", Status),
+    out("strategy", Strategy).
+
+strategy:-
+    read_string("Код стратегической задачи", Id),
+    read_string("Описание", Description),
+    read_string("Горизонт", Horizon),
+    select_item("Цель", goal, description, Goal),
+    write("---------------------"), nl,
+    out("id", Id),
+    out("description", Description),
+    out("horizon", Horizon),
+    out("Goal", Goal).
+
+goal:-
+    read_string("Код цели", Id),
+    read_string("Описание", Description),
+    read_string("Горизонт", Horizon),
+    write("---------------------"), nl,
+    out("id", Id),
+    out("description", Description),
+    out("horizon", Horizon).
 

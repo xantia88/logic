@@ -4,7 +4,6 @@ read_string(Message, Value) :-
     read(Y),
     Value = Y.
 
-
 % Попросить пользователя ввести числовое значение и прочитать его
 read_number(Message, Value) :-
     repeat,
@@ -52,4 +51,29 @@ list(E, N) :-
     call(E, Id), write(Id), write("="), call(N, Id, Name), write(Name), nl, fail.
 list(_, _) :-
     true.
+
+% Проверка значения
+validate(T, X):-
+    tab(4), write(T), tab(4), 
+    write("........................"),
+    (
+        call(T, X, _) ->
+        write("ok"), !
+        ; write("ошибка (параметр)")
+    ), nl.
+
+% Проверка значения из справочника
+validate(T, X, L):-
+    tab(4), write(T), tab(4),
+    write("........................"),
+    (
+        call(T, X, V) ->
+        write("ok"), tab(4),
+        (
+            call(L, _, V) ->
+            write("ok"), !
+            ; write("ошибка (справочник)")
+        ), !
+        ; write("ошибка")
+    ), nl.
 
