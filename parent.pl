@@ -1,22 +1,24 @@
-% список предикатов, используемых для моделирования (общий язык)
-:-discontiguous(goal/1).
-:-discontiguous(name/2).
-:-discontiguous(description/2).
-:-discontiguous(comments/2).
-:-discontiguous(horizon/2).
-:-discontiguous(strategy/1).
-:-discontiguous(realize/2).
-:-discontiguous(task/1).
-:-discontiguous(deadline/2).
-:-discontiguous(task_status/2).
-:-discontiguous(client/1).
-:-discontiguous(client/2).
-:-discontiguous(product/1).
-:-discontiguous(product/2).
-:-discontiguous(channel/1).
-:-discontiguous(status/2).
-:-discontiguous(type/2).
-:-discontiguous(security/2).
+% Список предикатов, используемых для моделирования (общий язык)
+:-discontiguous(goal/1). % Цели компании 
+:-discontiguous(name/2). % Наименование объекта
+:-discontiguous(description/2). % Описания объекта
+:-discontiguous(comments/2). % Дополнителные комментарии, связанные с объектом
+:-discontiguous(horizon/2). % Горизонта планирования 
+:-discontiguous(strategy/1). % Стратегические задачи компании
+:-discontiguous(realize/2). % Отношения реализации
+:-discontiguous(task/1). % Тактические задачи компании
+:-discontiguous(deadline/2). % Ожидаемый срок завершения тактической задачи компании 
+:-discontiguous(client/1). % Клиенты компании
+:-discontiguous(client/2). % Клиенты компании, использующие каналы компании 
+:-discontiguous(count/2). % Количество клиентов компании 
+:-discontiguous(product/1). % Продукты компании
+:-discontiguous(product/2). % Продукты компании, поставляемые в каналах компании
+:-discontiguous(channel/1). % Каналы компании
+:-discontiguous(status/2). % Статус объекта
+:-discontiguous(type/2). % Типа объекта
+:-discontiguous(security/2). % Механизм защиты канала
+:-discontiguous(group/1). % Группа систем
+:-discontiguous(parent/2). % Родительская группа систем
 
 % справочник статусов задачи (Р09)
 task_status(1, "Запланировано").
@@ -90,11 +92,32 @@ valid_channel(X):-
     location(X, L), channel_location(_, L), % должно быть указано размещение из соотвествующего справочника
     description(X, _), % должно быть указано описание
     status(X, S), channel_status(_, S), % должен быть указан статус из соотвествующего справочника
-    product(X, P), valid_product(P), % должен быть указан хотя бы один валидный продукт
-    client(X, C), valid_client(C), % должен быть указан хотя бы один валидный клиент
-    security(X, _). % должны быть указаны способы защиты
+    security(X, _), % должны быть указаны способы защиты
+    (
+        client(X, _) -> % должны быть указаны валидные клиенты
+        findall(C, client(X, C), LC),
+        forall(member(C, LC), valid_client(C)), !
+        ; fail
+    ),
+    (
+        product(X, _) -> % должны быть указаны валидные продукты
+        findall(P, product(X, P), LP),
+        forall(member(P, LP), valid_product(P)), !
+        ; fail
+    ).
+ 
+% Проверка корректности группы (P12)
+valid_group(X):-
+    group(X),
+    name(X, _),
+    (
+        parent(X, _) ->
+        findall(G, parent(X, G), L),
+        forall(member(G, L), valid_group(G))
+        ; true
+    ).
 
-% Анализ цели
+% Анализ цели (P01)
 explain_goal(X):-
     write("Цель "), write(X), write(" "),
     (
@@ -105,7 +128,7 @@ explain_goal(X):-
         ; write(" не определена") % Иначе сообщить об ошибке
     ).
 
-% Анализ стратегической задачи
+% Анализ стратегической задачи (P02)
 explain_strategy(X):-
     write("Стратегическая задача "), write(X), write(" "),
     (
@@ -121,7 +144,7 @@ explain_strategy(X):-
         ; write(" не определена") % Сообщить об ошибке
     ).
 
-% Анализ задачи
+% Анализ задачи (P09)
 explain_task(X):-
     write("Задача "), write(X),
     (
@@ -138,7 +161,7 @@ explain_task(X):-
         ; write(" не определена") % Сообщить об ошибке
     ).
 
-% Анализ клиента
+% Анализ клиента (P03)
 explain_client(X):-
     write("Клиент "), write(X),
     (
@@ -155,7 +178,7 @@ explain_client(X):-
         ; write(" не определена") % Сообщить об ошибке
     ).
 
-% Анализ продукта
+% Анализ продукта (P04)
 explain_product(X):-
     write("Продукт "), write(X),
     (
@@ -167,9 +190,9 @@ explain_product(X):-
         ; write(" не определен") % Сообщить об ошибке
     ).
 
-% Анализ канала
+% Анализ канала (P05)
 explain_channel(X):-
-    write("Канал "), write(X),
+    write("Канал "), write(X), nl,
     (
         channel(X) -> % Если клиент определен как сущность
         write(" определен"), nl, 
@@ -178,17 +201,36 @@ explain_channel(X):-
         validate(type, X, channel_type), % Проверить, что задан тип из соотвествующего справочника
         validate(location, X, channel_location), % Проверить, что размещение задано из соотвествующего справочника
         validate(status, X, channel_status), % Проверить, что статус задан из соотвествующего справочника
-        validate(security, X), %Проверить, что заданы средства защиты 
+        validate(security, X), %Проверить, что заданы средства защиты  
         (
             client(X, _) -> % Если указаны обслуживаемые клиенты
-            client(X, C), explain_client(C) % Перейти к анализу обслуживаемых клиентов
+            findall(C, client(X, C), LC), % Найти обслуживаемых клиентов
+            forall(member(C, LC), explain_client(C)) %  Перейти к анализу обслуживаемых клиентов
             ; write("Ошибка: не указаны обслуживаемые клиенты"), nl % Сообщить об ошибке
         ),
         (
             product(X, _) -> % Если указаны поставляемые продукты
-            product(X, P), explain_product(P) % Перейти к анализу поставляемых продуктов
+            findall(P, product(X, P), LP), % Найти поставляемые продукты
+            forall(member(P, LP), explain_product(P)) % Перейти к анализу поставляемых продуктов
             ; write("Ошибка: не указаны поставляемые продукты"), nl % Сообщить об ошибке
-        )
+        ), !
         ; write(" не определен") % Сообщить об ошибке
     ).
+
+% Анализ группы систем (P12)
+explain_group2(X):-
+    write("Группа систем "), write(X),
+    (
+        group(X) -> % Если группа систем определена как сущность
+        write(" определена"), nl, 
+        validate(name, X), % Проверить, что задано наименование
+        (
+            parent(X, _) ->
+            findall(G, parent(X, G), L),
+            forall(member(G, L), explain_group2(G)), !
+            ; !
+        )
+        ; write(" не определена") % Сообщить об ошибке
+    ).
+
 

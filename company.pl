@@ -44,10 +44,15 @@ description(client1, "client 1 description").
 type(client1, "Физические лица").
 count(client1, 100).
 
+client(client2).
+description(client2, "client 2 description").
+type(client2, "Микро и малый бизнес").
+count(client2, 10).
+
 % Продукты (Р04)
 % ----------------------------------------------------------------------
 product(product1).
-%name(product1, "this product 1 name").
+name(product1, "this product 1 name").
 description(product1, "this is product 1 description").
 status(product1, "Используется").
 comments("product1", "these are the comments, risks, problems").
@@ -67,9 +72,33 @@ location(channel1, "Внутренний").
 description(channel1, "this is channel 1 description").
 status(channel1, "Создается").
 security(channel1, "SSL").
-%product(channel1, product1).
-%product(channel1, product2).
-%client(channel1, client1).
+product(channel1, product1).
+product(channel1, product2).
+client(channel1, client1).
+client(channel1, client2).
+
+% Группы (Р12)
+% ----------------------------------------------------------------------
+group(group1).
+name(group1, "this is group 1 name").
+
+group(group2).
+name(group2, "this is group 2 name").
+parent(group2, group1).
+
+group(group3).
+%name(group3, "this is group 3 name").
+parent(group3, group2).
+
+group(group4).
+name(group4, "this is group 4 name").
+parent(group4, group2).
+parent(group4, group3).
+
+
+
+
+
 
 :-consult("io.pl").
 
