@@ -88,19 +88,10 @@ https://news.ycombinator.com/item?id=34164221
 3. Формирование описание архитектуры на базе построенной модели дочернего общества в выбранном формате (YAML, SQL, ArchiMate).
 4. Автоматическое формирование архитектурных решений и рекомендаций (модель, шаблоны проектирования, известные и неизвестные архитектурные объекты).
 
-[Установка Prolog](https://github.com/xantia88/logic/wiki/%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-Prolog)
+## Оглавление
 
-### Ссылки 
-  
-  Основной сайт  
-  https://www.swi-prolog.org/
+[01. Установка Prolog](https://github.com/xantia88/logic/wiki/%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-Prolog)
 
-  Среда для web  
-  https://swish.swi-prolog.org/
-
-  Хорошая книга:  
-  Язык PROLOG (Пролог): алгоритмы искусственного интеллекта, Иван Братко  
-  https://www.williamspublishing.com/Books/978-5-8459-0664-9.html
   
   
   
