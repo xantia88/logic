@@ -88,40 +88,7 @@ https://news.ycombinator.com/item?id=34164221
 3. Формирование описание архитектуры на базе построенной модели дочернего общества в выбранном формате (YAML, SQL, ArchiMate).
 4. Автоматическое формирование архитектурных решений и рекомендаций (модель, шаблоны проектирования, известные и неизвестные архитектурные объекты).
 
-# Установка Prolog
-
-## Windows
-  - скачать дистрибутив https://www.swi-prolog.org/download/stable/bin/swipl-9.2.5-1.x64.exe.envelope
-  - (рекомендуется) установить WSL (Windows Subsystem for Linux) и следовать инструкциям установки для Linux
-
-## Linux
-```
-  sudo apt-add-repository ppa:swi-prolog/stable
-  sudo apt-get update
-  sudo apt-get install swi-prolog
-```
-## MacOS
-```
-  brew install swi-prolog
-```
-После установки не требуется дополнительной настройки. 
-
-# Запуск Prolog
-
-Из командной строки или терминала, в том числе в любой IDE:  
-```
-  swipl
-```
-Или:
-```
-  swipl -f filename
-```
-где filename - текстовый файл с инструкциями Prolog, содержащий базу знаний
-
-Для выхода из Prolog введите команду halt. (Каждая команда заканчивается точкой) 
-```
-  halt.
-```
+[Установка Prolog](https://github.com/xantia88/logic/wiki/%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-Prolog)
 
 ### Ссылки 
   
