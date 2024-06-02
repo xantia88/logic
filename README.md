@@ -81,6 +81,10 @@ https://www.brz.gv.at/en/BRZ-Tech-Blog/Tech-Blog-7-Symbolic-Analysis-of-Grants.h
 
 https://news.ycombinator.com/item?id=34164221
 
+Хорошая книга:  
+Язык PROLOG (Пролог): алгоритмы искусственного интеллекта, Иван Братко  
+https://www.williamspublishing.com/Books/978-5-8459-0664-9.html
+
 Задачами данного проекта являются:
 
 1. Описание архитектурной метамодели SEAF и SEAF ДЗО ввиде логической системы (факты, отношения, правила).
