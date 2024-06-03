@@ -77,3 +77,37 @@ validate(T, X, L):-
         ; write("ошибка")
     ), nl.
 
+out(Name, Value):-
+    write(Name), write(" = "), write(Value), nl.
+
+task:-
+    read_string("Код задачи", Id),
+    read_string("Описание", Description),
+    read_string("Срок", Deadline),
+    select_item("Статус", task_status, Status),
+    select_item("Стратегия", strategy, description, Strategy),
+    write("---------------------"), nl,
+    out("id", Id),
+    out("description", Description),
+    out("deadline", Deadline),
+    out("status", Status),
+    out("strategy", Strategy).
+
+strategy:-
+    read_string("Код стратегической задачи", Id),
+    read_string("Описание", Description),
+    read_string("Горизонт", Horizon),
+    select_item("Цель", goal, description, Goal),
+    write("---------------------"), nl,
+    out("id", Id),
+    out("description", Description),
+    out("horizon", Horizon),
+    out("Goal", Goal).
+
+goal:-
+    read_string("Код цели", Id),
+    read_string("Описание", Description),
+    read_string("Горизонт", Horizon),
+    write("---------------------"), nl,
+    out("id", Id),
+    out("description", Description),

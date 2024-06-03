@@ -1,4 +1,4 @@
-% Подключить модель  родительской компании
+% Подключить модель родительской компании
 :-consult("parent.pl").
 
 % Стратегические цели (Р01)
@@ -87,7 +87,7 @@ name(group2, "this is group 2 name").
 parent(group2, group1).
 
 group(group3).
-%name(group3, "this is group 3 name").
+name(group3, "this is group 3 name").
 parent(group3, group2).
 
 group(group4).
@@ -95,46 +95,52 @@ name(group4, "this is group 4 name").
 parent(group4, group2).
 parent(group4, group3).
 
+% проверка корректности систем (Р11)
+% ----------------------------------------------------------------------
+system(system1).
+name(system1, "this is system 1 name").
+description(system1, "this is system 1 description").
+group(system1, group4).
+ownership(system1, "Используем как сервис (SaaS)").
+class(system1, "Класс").
+external(system1).
 
+system(system2).
+name(system2, "this is system 2 name").
+description(system2, "this is system 2 description").
+group(system2, group3).
+ownership(system2, "Владеем экземпляром").
+class(system2, "Класс").
+internal(system2).
+status(system2, "Целевая").
+change(system2, "Планируется").
+current(system2, "Эскиз").
+plan(system2, "Промышленная эксплуатация").
+level(system2, "Business Critical").
+performance(system2, "performance here").
+availability(system2, "availablity here").
+rto(system2, "24").
+rpo(system2, "20").
+%monitoring(system2, "monitoring here").
+changes(system2, "changes here").
 
-
-
-
-:-consult("io.pl").
-
-out(Name, Value):-
-    write(Name), write(" = "), write(Value), nl.
-
-task:-
-    read_string("Код задачи", Id),
-    read_string("Описание", Description),
-    read_string("Срок", Deadline),
-    select_item("Статус", task_status, Status),
-    select_item("Стратегия", strategy, description, Strategy),
-    write("---------------------"), nl,
-    out("id", Id),
-    out("description", Description),
-    out("deadline", Deadline),
-    out("status", Status),
-    out("strategy", Strategy).
-
-strategy:-
-    read_string("Код стратегической задачи", Id),
-    read_string("Описание", Description),
-    read_string("Горизонт", Horizon),
-    select_item("Цель", goal, description, Goal),
-    write("---------------------"), nl,
-    out("id", Id),
-    out("description", Description),
-    out("horizon", Horizon),
-    out("Goal", Goal).
-
-goal:-
-    read_string("Код цели", Id),
-    read_string("Описание", Description),
-    read_string("Горизонт", Horizon),
-    write("---------------------"), nl,
-    out("id", Id),
-    out("description", Description),
-    out("horizon", Horizon).
+system(system3).
+name(system3, "this is system 2 name").
+description(system3, "this is system 2 description").
+group(system3, group3).
+ownership(system3, "Владеем экземпляром").
+class(system3, "Класс").
+internal(system3).
+status(system3, "Целевая").
+change(system3, "Планируется").
+current(system3, "Эскиз").
+plan(system3, "Промышленная эксплуатация").
+level(system3, "Business Critical").
+performance(system3, "performance here").
+availability(system3, "availablity here").
+rto(system3, "24").
+rpo(system3, "20").
+monitoring(system3, "monitoring here").
+changes(system3, "changes here").
+parent(system3, system2).
 
