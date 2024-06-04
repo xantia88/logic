@@ -95,7 +95,7 @@ name(group4, "this is group 4 name").
 parent(group4, group2).
 parent(group4, group3).
 
-% проверка корректности систем (Р11)
+% Системы (Р11)
 % ----------------------------------------------------------------------
 system(system1).
 name(system1, "this is system 1 name").
@@ -143,4 +143,14 @@ rpo(system3, "20").
 monitoring(system3, "monitoring here").
 changes(system3, "changes here").
 parent(system3, system2).
+
+% Системы (Р11)
+% ----------------------------------------------------------------------
+function(function1).
+name(function1, "this is function 1 name").
+description(function1, "this is function 1 description").
+target(function1, "Целевое").
+status(function1, "Планируется").
+system(function1, system1).
+system(function1, system2).
 

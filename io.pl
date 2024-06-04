@@ -111,3 +111,4 @@ goal:-
     write("---------------------"), nl,
     out("id", Id),
     out("description", Description),
+    out("horizon", Horizon).
