@@ -45,11 +45,11 @@ Prolog - язык программирования и технология, по
 |Цель компании|goal|valid_goal(X)|explain_goal(X)|goal(X)|
 |Стратегическая задача|strategy|valid_strategy(X)|explain_strategy(X)|strategy(X)|
 |Тактическая задача|task|valid_task(X)|explain_task(X)|task(X)|
-|Клиент|client|valid_client(X)|explain_client(X)|TBD|
-|Продукт|product|valid_product(X)|explain_product(X)|TBD|
-|Канал|channel|valid_channel(X)|explain_channel(X)|TBD|
-|Группа систем|group|valid_group(X)|explain_group(X)|TBD|
-|Система|system|valid_system(X)|explain_system(X)|TBD|
+|Клиент|client|valid_client(X)|explain_client(X)||
+|Продукт|product|valid_product(X)|explain_product(X)||
+|Канал|channel|valid_channel(X)|explain_channel(X)||
+|Группа систем|group|valid_group(X)|explain_group(X)||
+|Система|system|valid_system(X)|explain_system(X)||
 |Бизнес процесс|||||
 |Бизнес объект|||||
 |Объект данных|||||
