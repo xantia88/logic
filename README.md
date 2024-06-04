@@ -45,7 +45,7 @@ Prolog - язык программирования и технология, по
 |--------|------------------------------------|---------------------------------------|---------------------|----------------|
 |Цель компании|goal|valid_goal(X)|explain_goal(X)|goal(X)|
 |Стратегическая задача|strategy|valid_strategy(X)|explain_strategy(X)|strategy(X)|
-|Тактическая задача|task|valid_task(X)|explain_task(X)|task(X)|
+|Задачи и планы|task|valid_task(X)|explain_task(X)|task(X)|
 |Клиент|client|valid_client(X)|explain_client(X)||
 |Продукт|product|valid_product(X)|explain_product(X)||
 |Канал|channel|valid_channel(X)|explain_channel(X)||
