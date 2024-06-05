@@ -154,3 +154,17 @@ status(function1, "Планируется").
 system(function1, system1).
 system(function1, system2).
 
+% Объекты данных (Р08)
+% ----------------------------------------------------------------------
+data_object(data_object1).
+name(data_object1, "this is data_object 1 name").
+category(data_object1, "Персональные данные").
+status(data_object1, "Используется").
+system(data_object1, system1).
+
+data_object(data_object2).
+name(data_object2, "this is data_object 2 name").
+category(data_object2, "Медицинские данные").
+status(data_objec2, "Используется").
+system(data_object2, system2).
+
