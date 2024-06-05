@@ -102,7 +102,7 @@ name(system1, "this is system 1 name").
 description(system1, "this is system 1 description").
 group(system1, group4).
 ownership(system1, "Используем как сервис (SaaS)").
-class(system1, "Класс").
+class(system1, "Класс 1").
 external(system1).
 
 system(system2).
@@ -110,7 +110,7 @@ name(system2, "this is system 2 name").
 description(system2, "this is system 2 description").
 group(system2, group3).
 ownership(system2, "Владеем экземпляром").
-class(system2, "Класс").
+class(system2, "Класс 2").
 internal(system2).
 status(system2, "Целевая").
 change(system2, "Планируется").
@@ -119,9 +119,9 @@ plan(system2, "Промышленная эксплуатация").
 level(system2, "Business Critical").
 performance(system2, "performance here").
 availability(system2, "availablity here").
-rto(system2, "24").
+%rto(system2, "24").
 rpo(system2, "20").
-%monitoring(system2, "monitoring here").
+monitoring(system2, "monitoring here").
 changes(system2, "changes here").
 
 system(system3).
@@ -129,7 +129,7 @@ name(system3, "this is system 2 name").
 description(system3, "this is system 2 description").
 group(system3, group3).
 ownership(system3, "Владеем экземпляром").
-class(system3, "Класс").
+class(system3, "Класс 3").
 internal(system3).
 status(system3, "Целевая").
 change(system3, "Планируется").
@@ -144,7 +144,7 @@ monitoring(system3, "monitoring here").
 changes(system3, "changes here").
 parent(system3, system2).
 
-% Системы (Р11)
+% Функциональность (Р10)
 % ----------------------------------------------------------------------
 function(function1).
 name(function1, "this is function 1 name").
@@ -164,7 +164,37 @@ system(data_object1, system1).
 
 data_object(data_object2).
 name(data_object2, "this is data_object 2 name").
-category(data_object2, "Медицинские данные").
-status(data_objec2, "Используется").
+%category(data_object2, "Медицинские данные").
+status(data_object2, "Используется").
 system(data_object2, system2).
+
+% Интеграционные потоки (Р14)
+% ----------------------------------------------------------------------
+integration(integration1).
+description(integration1, "this is integration1 description").
+source(integration1, system1).
+destination(integration1, system2).
+transmit(integration1, data_object1).
+transmit(integration1, data_object2).
+technology(integration1, "FILE").
+mode(integration1, "По расписанию").
+max_load(integration1, "100 rps").
+avg_load(integration1, "10 rps").
+asynch(integration1).
+status(integration1, "Используется").
+security(integration1, "SSL").
+
+integration(integration2).
+description(integration2, "this is integration1 description").
+source(integration2, system1).
+destination(integration2, system2).
+transmit(integration2, data_object1).
+transmit(integration2, data_object2).
+technology(integration2, "FILE").
+mode(integration2, "По расписанию").
+max_load(integration2, "100 rps").
+avg_load(integration2, "10 rps").
+asynch(integration2).
+status(integration2, "Используется").
+security(integration2, "SSL").
 
