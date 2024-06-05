@@ -209,3 +209,27 @@ asynch(integration2).
 status(integration2, "Используется").
 security(integration2, "SSL").
 
+% Технические компоненты (Р16)
+% ----------------------------------------------------------------------
+component(component1).
+system(component1, system1).
+type(component1, "Proxy").
+software(component1, "SuperProxy").
+vendor(component1, "MS").
+scalability(component1, "Горизонтальная").
+ha(component1, false).
+dr(component1, type("Active"), level("Полное")).
+backup(component1, location("ЦОД"), duplicate("ЦОД")).
+monitoring(component1, "Zabbix").
+
+component(component2).
+system(component2, system1).
+type(component2, "Proxy").
+software(component2, "SuperProxy 2").
+vendor(component2, "MS").
+scalability(component2, "Вертикальная").
+ha(component2, type("Active"), level("Частичное")).
+dr(component2, type("StandBy"), level("Полное")).
+backup(component2, location("ЦОД"), duplicate("Offsite")).
+monitoring(component2, "Zabbix").
+
