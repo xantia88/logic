@@ -41,24 +41,24 @@ Prolog - язык программирования и технология, по
 
 Ниже приведен список сущностей предметной области, используемый для описания архитектуры дочернего общества:
 
-|Сущность|Название на языке предметной области|Проверить, что сущность определена корректно (True / False)|Объяснить, где ошибки, если сущность определена некорректно|Запустить диалог для работы и исправления|
-|--------|------------------------------------|---------------------------------------|---------------------|----------------|
-|Цель компании|goal|valid_goal(X)|explain_goal(X)|goal(X)|
-|Стратегическая задача|strategy|valid_strategy(X)|explain_strategy(X)|strategy(X)|
-|Задачи и планы|task|valid_task(X)|explain_task(X)|task(X)|
-|Клиент|client|valid_client(X)|explain_client(X)||
-|Продукт|product|valid_product(X)|explain_product(X)||
-|Канал|channel|valid_channel(X)|explain_channel(X)||
-|Группа систем|group|valid_group(X)|explain_group(X)||
-|Система|system|valid_system(X)|explain_system(X)||
-|Бизнес процесс|||||
-|Бизнес объект|business_object|valid_business_object(X)|explain_business_object(X)||
-|Объект данных|data_object|valid_data_object(X)|explain_data_object(X)||
-|Интеграционный поток|integration|valid_integration(X)|explain_integration(X)||
-|Технический компонент|component(X)|valid_component(X)|explain_component(X)||
-|Функциональность|function|valid_function(X)|explain_function(X)||
-|Технологический сервис|||||
-|Система кибербезопасности|||||
+|Сущность|Название на языке предметной области|Проверить, что сущность определена корректно (True / False)|Объяснить, где ошибки, если сущность определена некорректно|
+|--------|------------------------------------|---------------------------------------|---------------------|
+|Цель компании|goal|valid_goal(X)|explain_goal(X)|
+|Стратегическая задача|strategy|valid_strategy(X)|explain_strategy(X)|
+|Задачи и планы|task|valid_task(X)|explain_task(X)|
+|Клиент|client|valid_client(X)|explain_client(X)|
+|Продукт|product|valid_product(X)|explain_product(X)|
+|Канал|channel|valid_channel(X)|explain_channel(X)|
+|Группа систем|group|valid_group(X)|explain_group(X)|
+|Система|system|valid_system(X)|explain_system(X)|
+|Бизнес процесс||||
+|Бизнес объект|business_object|valid_business_object(X)|explain_business_object(X)|
+|Объект данных|data_object|valid_data_object(X)|explain_data_object(X)|
+|Интеграционный поток|integration|valid_integration(X)|explain_integration(X)|
+|Технический компонент|component(X)|valid_component(X)|explain_component(X)|
+|Функциональность|function|valid_function(X)|explain_function(X)|
+|Технологический сервис||||
+|Система кибербезопасности||||
 
 ## Оглавление
 
