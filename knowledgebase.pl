@@ -154,6 +154,16 @@ status(function1, "Планируется").
 system(function1, system1).
 system(function1, system2).
 
+% Бизнес объекты (Р07)
+% ----------------------------------------------------------------------
+business_object(business_object1).
+name(business_object1, "this is business_object 1 name").
+status(business_object1, "Используется").
+
+business_object(business_object2).
+name(business_object2, "this is business_object 2 name").
+status(business_object2, "Используется1").
+
 % Объекты данных (Р08)
 % ----------------------------------------------------------------------
 data_object(data_object1).
@@ -161,6 +171,7 @@ name(data_object1, "this is data_object 1 name").
 category(data_object1, "Персональные данные").
 status(data_object1, "Используется").
 system(data_object1, system1).
+parent(data_object1, business_object2).
 
 data_object(data_object2).
 name(data_object2, "this is data_object 2 name").

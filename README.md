@@ -52,7 +52,7 @@ Prolog - язык программирования и технология, по
 |Группа систем|group|valid_group(X)|explain_group(X)||
 |Система|system|valid_system(X)|explain_system(X)||
 |Бизнес процесс|||||
-|Бизнес объект|||||
+|Бизнес объект|business_object|valid_business_object(X)|explain_business_object(X)||
 |Объект данных|data_object|valid_data_object(X)|explain_data_object(X)||
 |Интеграционный поток|integration|valid_integration(X)|explain_integration(X)||
 |Технический компонент|||||
