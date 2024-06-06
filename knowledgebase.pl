@@ -154,30 +154,48 @@ status(function1, "Планируется").
 system(function1, system1).
 system(function1, system2).
 
+% Бизнес процессы (Р06)
+% ----------------------------------------------------------------------
+process(process1).
+name(process1, "this is process 1 name").
+description(process1, "this is process 1 description").
+use(process1, system1).
+use(process1, product1).
+use(process1, object1).
+use(process1, integration1).
+
+process(process2).
+name(process2, "this is process 2 name").
+description(process2, "this is process 2 description").
+use(process2, system2).
+use(process2, product2).
+use(process2, object2).
+use(process2, integration2).
+
 % Бизнес объекты (Р07)
 % ----------------------------------------------------------------------
-business_object(business_object1).
-name(business_object1, "this is business_object 1 name").
-status(business_object1, "Используется").
+object(object1).
+name(object1, "this is object 1 name").
+status(object1, "Используется").
 
-business_object(business_object2).
-name(business_object2, "this is business_object 2 name").
-status(business_object2, "Используется1").
+object(object2).
+name(object2, "this is object 2 name").
+status(object2, "Используется1").
 
 % Объекты данных (Р08)
 % ----------------------------------------------------------------------
-data_object(data_object1).
-name(data_object1, "this is data_object 1 name").
-category(data_object1, "Персональные данные").
-status(data_object1, "Используется").
-system(data_object1, system1).
-parent(data_object1, business_object2).
+data(data1).
+name(data1, "this is data 1 name").
+category(data1, "Персональные данные").
+status(data1, "Используется").
+system(data1, system1).
+parent(data1, object2).
 
-data_object(data_object2).
-name(data_object2, "this is data_object 2 name").
-%category(data_object2, "Медицинские данные").
-status(data_object2, "Используется").
-system(data_object2, system2).
+data(data2).
+name(data2, "this is data 2 name").
+%category(data2, "Медицинские данные").
+status(data2, "Используется").
+system(data2, system2).
 
 % Интеграционные потоки (Р14)
 % ----------------------------------------------------------------------
@@ -185,8 +203,8 @@ integration(integration1).
 description(integration1, "this is integration1 description").
 source(integration1, system1).
 destination(integration1, system2).
-transmit(integration1, data_object1).
-transmit(integration1, data_object2).
+transmit(integration1, data1).
+transmit(integration1, data2).
 technology(integration1, "FILE").
 mode(integration1, "По расписанию").
 max_load(integration1, "100 rps").
@@ -199,8 +217,8 @@ integration(integration2).
 description(integration2, "this is integration1 description").
 source(integration2, system1).
 destination(integration2, system2).
-transmit(integration2, data_object1).
-transmit(integration2, data_object2).
+transmit(integration2, data1).
+transmit(integration2, data2).
 technology(integration2, "FILE").
 mode(integration2, "По расписанию").
 max_load(integration2, "100 rps").

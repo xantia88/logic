@@ -51,9 +51,9 @@ Prolog - язык программирования и технология, по
 |Канал|channel|valid_channel(X)|explain_channel(X)|
 |Группа систем|group|valid_group(X)|explain_group(X)|
 |Система|system|valid_system(X)|explain_system(X)|
-|Бизнес процесс||||
-|Бизнес объект|business_object|valid_business_object(X)|explain_business_object(X)|
-|Объект данных|data_object|valid_data_object(X)|explain_data_object(X)|
+|Бизнес процесс|process|valid_process(X)|explain_process(X)|
+|Бизнес объект|object|valid_object(X)|explain_object(X)|
+|Объект данных|data|valid_data(X)|explain_data(X)|
 |Интеграционный поток|integration|valid_integration(X)|explain_integration(X)|
 |Технический компонент|component(X)|valid_component(X)|explain_component(X)|
 |Функциональность|function|valid_function(X)|explain_function(X)|
