@@ -80,35 +80,91 @@ validate(T, X, L):-
 out(Name, Value):-
     write(Name), write(" = "), write(Value), nl.
 
+
+
+:-dynamic(goal/1).
+:-dynamic(realize/2).
+:-dynamic(description/2).
+:-dynamic(horizon/2).
+:-dynamic(deadline/2).
+:-dynamic(status/2).
+:-dynamic(task/1).
+:-dynamic(strategy/1).
+
+% структура YAML для цели
+yaml_goal(X):-
+    goal(X),
+    tab(4), write("goal: "), write(X), nl,
+    tab(8), write("description:"), description(X, D), write(D), nl,
+    tab(8), write("horizon: "), horizon(X, H), write(H), nl.
+
+% структура YAML для стратегической задачи
+yaml_strategy(X):-
+    strategy(X),
+    tab(4), write("strategy: "), write(X), nl,
+    tab(8), write("description:"), description(X, D), write(D), nl,
+    tab(8), write("horizon: "), horizon(X, H), write(H), nl,
+    tab(8), write("goal: "), realize(X, G), write(G), nl.
+
+% структура YAML для задачи и плана
+yaml_task(X):-
+    task(X),
+    tab(4), write("task: "), write(X), nl,
+    tab(8), write("description:"), description(X, D), write(D), nl,
+    tab(8), write("deadline: "), deadline(X, DL), write(DL), nl,
+    tab(8), write("status: "), status(X, S), write(S), nl,
+    tab(8), write("startegy: "), realize(X, St), write(St), nl.
+
+% вывод сущности в YAML
+yaml(X):-
+    (
+        % вывести YAML для той сущности, код которой передан
+        yaml_goal(X) ; yaml_strategy(X) ; yaml_task(X)
+    ).
+
+% диалог добавления новой цели
+goal:-
+    % собрать данные от пользователя
+    read_string("Код цели", Id),
+    read_string("Описание", Description),
+    read_string("Горизонт", Horizon),
+    % сохранить в базе знаний
+    assertz(goal(Id)), % добавить в базу знаний
+    assertz(description(Id, Description)),
+    assertz(horizon(Id, Horizon)),
+    % уведомить пользователя об операции
+    write("Цель сохранена в базе знаний"), nl.
+
+% диалог добавления новой стратегической задачи
+strategy:-
+    % собрать данные от пользователя
+    read_string("Код стратегической задачи", Id),
+    read_string("Описание", Description),
+    read_string("Горизонт", Horizon),
+    select_item("Цель", goal, description, Goal),
+    % сохранить в базе знаний
+    assertz(strategy(Id)), 
+    assertz(description(Id, Description)),
+    assertz(horizon(Id, Horizon)),
+    assertz(realize(Id, Goal)),
+    % уведомить пользователя об операции
+    write("Новая стратегическая задача соохранена в базе знаний"), nl.
+
+% диалог добавления новой задачи
 task:-
+    % собрать данные от пользователя
     read_string("Код задачи", Id),
     read_string("Описание", Description),
     read_string("Срок", Deadline),
     select_item("Статус", task_status, Status),
     select_item("Стратегия", strategy, description, Strategy),
-    write("---------------------"), nl,
-    out("id", Id),
-    out("description", Description),
-    out("deadline", Deadline),
-    out("status", Status),
-    out("strategy", Strategy).
+    % сохранить в базе знаний
+    assertz(task(Id)),
+    assertz(description(Id, Description)),
+    assertz(deadline(Id, Deadline)),
+    assertz(status(Id, Status)),
+    assertz(realize(Id, Strategy)),
+    % уведомить пользователя об операции
+    write("Новая задача и план соохранены в базе знаний"), nl.
 
-strategy:-
-    read_string("Код стратегической задачи", Id),
-    read_string("Описание", Description),
-    read_string("Горизонт", Horizon),
-    select_item("Цель", goal, description, Goal),
-    write("---------------------"), nl,
-    out("id", Id),
-    out("description", Description),
-    out("horizon", Horizon),
-    out("Goal", Goal).
 
-goal:-
-    read_string("Код цели", Id),
-    read_string("Описание", Description),
-    read_string("Горизонт", Horizon),
-    write("---------------------"), nl,
-    out("id", Id),
-    out("description", Description),
-    out("horizon", Horizon).

@@ -14,7 +14,7 @@ horizon(goal2, "zzz").
 % Стратегические задачи (Р02)
 % ----------------------------------------------------------------------
 strategy(strategy1).
-%description(strategy1, "strategy 1 description here").
+description(strategy1, "strategy 1 description here").
 horizon(strategy1, "2025Q1").
 realize(strategy1, goal1).
 
