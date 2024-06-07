@@ -318,22 +318,6 @@ valid(function(X)):-
         ; fail % иначе завершить проверку с ошибкой
     ).
 
-% выбрать из базы знаний системы, которые использует бизнес процесс
-systems(process(Process), system(System)):-
-    process(Process), use(process(Process), system(System)), system(System).
-
-% выбрать из базы знаний продукты, которые реализует бизнес процесс
-products(process(Process), product(Product)):-
-    process(Process), use(process(Process), product(Product)), product(Product).
-
-% выбрать из базы знаний интеграционные потоки, которые использует бизнес процесс
-integrations(process(Process), integration(Integration)):-
-    process(Process), use(process(Process), integration(Integration)), integration(Integration).
-
-% выбрать из базы знаний бизнес объекты, которые использует бизнес процесс
-objects(process(Process), object(BusinessObject)):-
-    process(Process), use(process(Process), object(BusinessObject)), object(BusinessObject).
-
 % проверка валидности бизнес процесса
 valid(process(X)):-
     process(X), % должен быть определен как бизнес процесс
@@ -341,24 +325,24 @@ valid(process(X)):-
     description(process(X), _), % должно быть указано описание
     (   % проверка обеспечивающих систем
         use(process(X), system(S)) -> % если бизнес процесс использует системы
-        findall(S, systems(process(X), system(S)), LS), forall(member(S, LS), valid(system(S))), ! % выбрать системы и проверить, что они валидны
+        findall(S, use(process(X), system(S)), LS), forall(member(S, LS), valid(system(S))), ! % выбрать системы и проверить, что они валидны
         ; fail % иначе завершить проверку с ошибкой
     ),
     (   % проверка используемых продуктов
         use(process(X), product(P)) -> % если бизнес процесс использует продукты
-        findall(P, products(process(X), product(P)), LP), forall(member(P, LP), valid(product(P))), ! % выбрать продукты и проверить, что они валидны
+        findall(P, use(process(X), product(P)), LP), forall(member(P, LP), valid(product(P))), ! % выбрать продукты и проверить, что они валидны
         ; fail % иначе завершить проверку с ошибкой
     ),
     (
         % проверка используемых интеграционных потоков
         use(process(X), integration(I)) -> % если бизнес процесс использует интеграции
-        findall(I, integrations(process(X), integration(I)), LI), forall(member(I, LI), valid(integration(I))), ! % выбрать интеграции и проверить, что они валидны
+        findall(I, use(process(X), integration(I)), LI), forall(member(I, LI), valid(integration(I))), ! % выбрать интеграции и проверить, что они валидны
         ; fail % иначе завершить проверку с ошибкой
     ), 
     (
         % проверка реаизуемых бизнес объектов
         use(process(X), object(O)) -> % если бизнес процесс использует бизнес объекты
-        findall(O, objects(process(X), object(O)), LO), forall(member(O, LO), valid(object(O))), ! % выбрать бизнес объекты и проверить, что они валидны
+        findall(O, use(process(X), object(O)), LO), forall(member(O, LO), valid(object(O))), ! % выбрать бизнес объекты и проверить, что они валидны
         ; fail % иначе завершить проверку с ошибкой
     ).
 
@@ -725,22 +709,22 @@ explain(process(X)):-
         validate(description, process(X)), % проверить, что задано описание
         (   % анализ обеспечивающих систем
             use(process(X), system(S)) -> % если бизнес процесс использует системы
-            findall(S, systems(process(X), system(S)), LS), forall(member(S, LS), explain(system(S))), ! % выбрать системы и перейти к их анализу
+            findall(S, use(process(X), system(S)), LS), forall(member(S, LS), explain(system(S))), ! % выбрать системы и перейти к их анализу
             ; write("Ошибка: не указаны системы, которые обеспечивают бизнес процесс"), nl % иначе сообщить об ошибке
         ),
         (   % анализ используемых продуктов
             use(process(X), product(P)) -> % если бизнес процесс использует продукты
-            findall(P, products(process(X), product(P)), LP), forall(member(P, LP), explain(product(P))), ! % выбрать продукты и перейти к их анализу
+            findall(P, use(process(X), product(P)), LP), forall(member(P, LP), explain(product(P))), ! % выбрать продукты и перейти к их анализу
             ; write("Ошибка: не указаны продукты, реализуемые бизнес процессом"), nl % иначе сообщить об ошибке
         ),
         (   % анализ используемых интеграционных потоков
             use(process(X), integration(I)) ->  % если бизнес процесс использует интеграционные потоки
-            findall(I, integrations(process(X), integration(I)), LI), forall(member(I, LI), explain(integration(I))), ! % найти интеграционные потоки и перейти к их анализу
+            findall(I, use(process(X), integration(I)), LI), forall(member(I, LI), explain(integration(I))), ! % найти интеграционные потоки и перейти к их анализу
             ; write("Ошибка: не указаны интеграционные потоки, которые обеспечивают бизнес процесс"), nl % иначе сообщить об ошибке
         ),
         (   % анализ используемых бизнес объектов
             use(process(X), object(O)) -> % если бизнес процесс использует бизнес объекты
-            findall(O, objects(process(X), object(O)), LO), forall(member(O, LO), explain(object(O))), ! % найти бизнес объекты и перейти к их анализу
+            findall(O, use(process(X), object(O)), LO), forall(member(O, LO), explain(object(O))), ! % найти бизнес объекты и перейти к их анализу
             ; write("Ошибка: не указаны бизнес объекты, которые использует бизнес процесс"), nl % иначе сообщить об ошибке
         ), ! % завершить анализ
         ; write(" не определен"), nl % иначе сообщить об ошибке
