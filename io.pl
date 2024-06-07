@@ -41,14 +41,14 @@ select_item(Message, Entity, Attribute, Id) :-
 
 % Отобразить элементы справочника
 list(L) :-
-    call(L, N, Name), write(N), write("="), write(Name), nl, fail.
+    call(L, N, Name), write("["), write(N), write("]"), write("="), write(Name), nl, fail.
 list(_) :-
     true.
 
 % Отобразить сущности для выбора
 % E - название сущности, N - аттрибут, используемый для выбора
 list(E, N) :-
-    call(E, Id), write(Id), write("="), call(N, Id, Name), write(Name), nl, fail.
+    call(E, Id), write("["), write(Id), write("]"), tab(4), call(N, Id, Name), write(Name), nl, fail.
 list(_, _) :-
     true.
 
@@ -82,6 +82,21 @@ out(Name, Value):-
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 :-dynamic(goal/1).
 :-dynamic(realize/2).
 :-dynamic(description/2).
@@ -90,37 +105,6 @@ out(Name, Value):-
 :-dynamic(status/2).
 :-dynamic(task/1).
 :-dynamic(strategy/1).
-
-% структура YAML для цели
-yaml_goal(X):-
-    goal(X),
-    tab(4), write("goal: "), write(X), nl,
-    tab(8), write("description:"), description(X, D), write(D), nl,
-    tab(8), write("horizon: "), horizon(X, H), write(H), nl.
-
-% структура YAML для стратегической задачи
-yaml_strategy(X):-
-    strategy(X),
-    tab(4), write("strategy: "), write(X), nl,
-    tab(8), write("description:"), description(X, D), write(D), nl,
-    tab(8), write("horizon: "), horizon(X, H), write(H), nl,
-    tab(8), write("goal: "), realize(X, G), write(G), nl.
-
-% структура YAML для задачи и плана
-yaml_task(X):-
-    task(X),
-    tab(4), write("task: "), write(X), nl,
-    tab(8), write("description:"), description(X, D), write(D), nl,
-    tab(8), write("deadline: "), deadline(X, DL), write(DL), nl,
-    tab(8), write("status: "), status(X, S), write(S), nl,
-    tab(8), write("startegy: "), realize(X, St), write(St), nl.
-
-% вывод сущности в YAML
-yaml(X):-
-    (
-        % вывести YAML для той сущности, код которой передан
-        yaml_goal(X) ; yaml_strategy(X) ; yaml_task(X)
-    ).
 
 % диалог добавления новой цели
 goal:-
@@ -167,4 +151,26 @@ task:-
     % уведомить пользователя об операции
     write("Новая задача и план соохранены в базе знаний"), nl.
 
+% структура YAML для цели
+yaml(goal(X)):-
+    goal(X),
+    tab(4), write("goal: "), write(X), nl,
+    tab(8), write("description:"), description(X, D), write(D), nl,
+    tab(8), write("horizon: "), horizon(X, H), write(H), nl.
 
+% структура YAML для стратегической задачи
+yaml(strategy(X)):-
+    strategy(X),
+    tab(4), write("strategy: "), write(X), nl,
+    tab(8), write("description:"), description(X, D), write(D), nl,
+    tab(8), write("horizon: "), horizon(X, H), write(H), nl,
+    tab(8), write("goal: "), realize(X, G), write(G), nl.
+
+% структура YAML для задачи и плана
+yaml(task(X)):-
+    task(X),
+    tab(4), write("task: "), write(X), nl,
+    tab(8), write("description:"), description(X, D), write(D), nl,
+    tab(8), write("deadline: "), deadline(X, DL), write(DL), nl,
+    tab(8), write("status: "), status(X, S), write(S), nl,
+    tab(8), write("startegy: "), realize(X, St), write(St), nl.
