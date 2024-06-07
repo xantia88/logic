@@ -207,8 +207,7 @@ transmit(integration1, data1).
 transmit(integration1, data2).
 technology(integration1, "FILE").
 mode(integration1, "По расписанию").
-max_load(integration1, "100 rps").
-avg_load(integration1, "10 rps").
+%load(integration1, max("100 rps"), avg("10 rps")).
 asynch(integration1).
 status(integration1, "Используется").
 security(integration1, "SSL").
@@ -221,8 +220,7 @@ transmit(integration2, data1).
 transmit(integration2, data2).
 technology(integration2, "FILE").
 mode(integration2, "По расписанию").
-max_load(integration2, "100 rps").
-avg_load(integration2, "10 rps").
+load(integration2, max("100 rps"), avg("10 rps")).
 asynch(integration2).
 status(integration2, "Используется").
 security(integration2, "SSL").
