@@ -85,18 +85,6 @@ out(Name, Value):-
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 :-dynamic(goal/1).
 :-dynamic(realize/2).
 :-dynamic(description/2).
@@ -174,3 +162,6 @@ yaml(task(X)):-
     tab(8), write("deadline: "), deadline(X, DL), write(DL), nl,
     tab(8), write("status: "), status(X, S), write(S), nl,
     tab(8), write("startegy: "), realize(X, St), write(St), nl.
+
+
+

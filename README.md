@@ -59,20 +59,20 @@ Prolog - технология логического программирова�
 
 |Сущность|Название на языке предметной области|Проверить, что сущность валидна |Объяснить, где ошибки, если сущность невалидна|
 |--------|------------------------------------|---------------------------------------|---------------------|
-|Цель компании|goal|valid_goal(X)|explain_goal(X)|
-|Стратегическая задача|strategy|valid_strategy(X)|explain_strategy(X)|
-|Задачи и планы|task|valid_task(X)|explain_task(X)|
-|Клиент|client|valid_client(X)|explain_client(X)|
-|Продукт|product|valid_product(X)|explain_product(X)|
-|Канал|channel|valid_channel(X)|explain_channel(X)|
-|Группа систем|group|valid_group(X)|explain_group(X)|
-|Система|system|valid_system(X)|explain_system(X)|
-|Бизнес процесс|process|valid_process(X)|explain_process(X)|
-|Бизнес объект|object|valid_object(X)|explain_object(X)|
-|Объект данных|data|valid_data(X)|explain_data(X)|
-|Интеграционный поток|integration|valid_integration(X)|explain_integration(X)|
-|Технический компонент|component|valid_component(X)|explain_component(X)|
-|Функциональность|function|valid_function(X)|explain_function(X)|
+|Цель компании|goal|valid(goal(X))|explain(goal(X))|
+|Стратегическая задача|strategy|valid(strategy(X))|explain(strategy(X))|
+|Задачи и планы|task|valid(task(X))|explain(task(X))|
+|Клиент|client|valid(client(X))|explain(client(X))|
+|Продукт|product|valid(product(X))|explain(product(X))|
+|Канал|channel|valid(channel(X))|explain(channel(X))|
+|Группа систем|group|valid(group(X))|explain(group(X))|
+|Система|system|valid(system(X))|explain(system(X))|
+|Бизнес процесс|process|valid(process(X))|explain(process(X))|
+|Бизнес объект|object|valid(object(X))|explain(object(X))|
+|Объект данных|data|valid(data(X))|explain(data(X))|
+|Интеграционный поток|integration|valid(integration(X))|explain(integration(X))|
+|Технический компонент|component|valid(component(X))|explain(component(X))|
+|Функциональность|function|valid(function(X))|explain(function(X))|
 |Технологический сервис||||
 |Система кибербезопасности||||
 
