@@ -54,7 +54,7 @@ list(_, _) :-
 
 % Проверка значения
 validate(T, X):-
-    tab(4), write(X), write("/"), write(T), tab(4), 
+    tab(4), write(T), tab(4), 
     write("........................"),
     (
         call(T, X, _) ->
@@ -64,7 +64,7 @@ validate(T, X):-
 
 % Проверка значения из справочника
 validate(T, X, L):-
-    tab(4), write(X), write("/"), write(T), tab(4),
+    tab(4), write(T), tab(4),
     write("........................"),
     (
         call(T, X, V) ->
