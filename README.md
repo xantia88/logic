@@ -73,8 +73,8 @@ Prolog - технология логического программирова�
 |Интеграционный поток|integration|valid(integration(X))|explain(integration(X))|
 |Технический компонент|component|valid(component(X))|explain(component(X))|
 |Функциональность|function|valid(function(X))|explain(function(X))|
-|Технологический сервис||||
-|Система кибербезопасности||||
+|Технологический сервис|service|valid(service(X))|explain(service(X))|
+|Система кибербезопасности|security|valid(security(X))|explain(security(X))|
 
 ## Оглавление
 

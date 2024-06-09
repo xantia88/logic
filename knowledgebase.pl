@@ -249,3 +249,34 @@ dr(component(component2), type("StandBy"), level("Полное")).
 backup(component(component2), location("ЦОД"), duplicate("Offsite")).
 monitoring(component(component2), "Zabbix").
 
+% Системы КБ (Р13)
+% ----------------------------------------------------------------------
+security(security1).
+name(security(security1), "this is security 1 name").
+description(security(security1), "this is security 1 description").
+class(security(security1), "ИБ-Антивирусное ПО").
+internal(security(security1)).
+status(security(security1), "Используется").
+
+security(security2).
+name(security(security2), "this is security 2 name").
+description(security(security2), "this is security 2 description").
+class(security(security2), "ИБ-Антивирусное ПО2").
+status(security(security2), "Используется").
+
+% Технологические сервисы (Р15)
+% ----------------------------------------------------------------------
+service(service1).
+name(service(service1), "this is service 1 name").
+description(service(service1), "this is service 1 description").
+class(service(service1), "Мониторинг").
+internal(service(service1)).
+status(service(service1), "Используется").
+
+service(service2).
+name(service(service2), "this is service 2 name").
+description(service(service2), "this is service 2 description").
+class(service(service2), "Удаленный доступ ччч").
+status(service(service2), "Используется").
+
+
