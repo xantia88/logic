@@ -158,10 +158,10 @@ yaml(strategy(X)):-
 yaml(task(X)):-
     task(X),
     tab(4), write("task: "), write(X), nl,
-    tab(8), write("description:"), description(X, D), write(D), nl,
-    tab(8), write("deadline: "), deadline(X, DL), write(DL), nl,
-    tab(8), write("status: "), status(X, S), write(S), nl,
-    tab(8), write("startegy: "), realize(X, St), write(St), nl.
+    tab(8), write("description:"), description(task(X), D), write(D), nl,
+    tab(8), write("deadline: "), deadline(task(X), DL), write(DL), nl,
+    tab(8), write("status: "), status(task(X), S), write(S), nl,
+    tab(8), write("startegy: "), realize(task(X), St), write(St), nl.
 
 
 
