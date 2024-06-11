@@ -5,7 +5,7 @@
 % ----------------------------------------------------------------------
 goal(goal1).
 description(goal(goal1), "goal 1 description here").
-horizon(goal(goal1), "2024Q4").
+horizon(goal(goal1), "").
 
 goal(goal2).
 description(goal(goal2), "zzz").
@@ -42,7 +42,7 @@ realize(task(task2), strategy(strategy2)).
 client(client1).
 description(client(client1), "client 1 description").
 type(client(client1), "Физические лица").
-count(client(client1), 100).
+count(client(client1), -100).
 
 client(client2).
 description(client(client2), "client 2 description").
@@ -68,7 +68,7 @@ comments(product("product2"), "these are the comments, risks, problems").
 channel(channel1).
 name(channel(channel1), "this is channel1 name").
 type(channel(channel1), "Цифровой").
-location(channel(channel1), "Внутренний").
+internal(channel(channel1)).
 description(channel(channel1), "this is channel 1 description").
 status(channel(channel1), "Создается").
 security(channel(channel1), "SSL").
