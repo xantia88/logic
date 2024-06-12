@@ -6,7 +6,7 @@ python3 prepare.py $1 >> knowledgebase.pl
 
 echo "starting load test (stage1: load data only)"
 date
-swipl -f test-case.pl -g loadTestValid -g halt > /dev/null
+swipl -f test-case.pl -g halt
 echo "load test finished (stage1: load data only)"
 date
 
