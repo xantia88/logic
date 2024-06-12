@@ -1,1 +1,4 @@
 *.swp
+load/model.pl
+load/knowledgebase.pl
+
