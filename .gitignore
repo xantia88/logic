@@ -1,4 +1,4 @@
 *.swp
-load/model.pl
-load/knowledgebase.pl
+test/model.pl
+test/knowledgebase.pl
 
