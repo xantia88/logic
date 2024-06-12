@@ -219,51 +219,51 @@ general_status(2, "Создается").
 % проверка валидности цели компании (Р01)
 valid(goal(X)):-
     goal(X), % должна быть определена в базе знаний как цель
-    description(goal(X), D), not(empty(D)), % должно быть задано описание
-    horizon(goal(X), H), not(empty(H)). % должен быть задан горизонт
+    description(goal(X), D), string(D), % должно быть задано описание
+    horizon(goal(X), H), string(H). % должен быть задан горизонт
 
 % проверка валидности стратегической задачи (Р02)
 valid(strategy(X)):-
     strategy(X), % должна быть определена в базе знаний как стратегическая задача
-    description(strategy(X), D), not(empty(D)), % должно быть задано описание
-    horizon(strategy(X), H), not(empty(H)), % должен быть определен горизонт
+    description(strategy(X), D), string(D), % должно быть задано описание
+    horizon(strategy(X), H), string(H), % должен быть определен горизонт
     realize(strategy(X), goal(Goal)), valid(goal(Goal)). % должна быть связана с валидной целью
 
 % проверка валидности задачи и плана (Р09)
 valid(task(X)):-
     task(X), % должна быть определена в базе знаний как задача
-    description(task(X), D), not(empty(D)), % должно быть задано описание
-    deadline(task(X), DL), not(empty(DL)), % должен быть задан срок
-    status(task(X), Status), task_status(_, Status), % должен быть определен статус из соответствующего справочника
+    description(task(X), D), string(D), % должно быть задано описание
+    deadline(task(X), DL), string(DL), % должен быть задан срок
+    status(task(X), S), listed(S, task_status), % должен быть определен статус из соответствующего справочника
     realize(task(X), strategy(Strategy)), valid(strategy(Strategy)). % должна быть связана с валидной стратегической задачей
 
 % проверка валидности клиента (Р03)
 valid(client(X)):-
     client(X), % должен быть определен в базе знаний как клиент
-    description(client(X), D), not(empty(D)), % должно быть задано описание
-    type(client(X), T), client_type(_, T), % должен быть определен статус из соотвествующего справочника
+    description(client(X), D), string(D), % должно быть задано описание
+    type(client(X), T), listed(T, client_type), % должен быть определен статус из соотвествующего справочника
     count(client(X), C), positive(C). % количество должно быть определено и значение должно быть положительным
 
 % проверка валидности продукта (Р04)
 valid(product(X)):-
     product(X), % должен быть определен в базе знаний как продукт
-    name(product(X), N), not(empty(N)), % должно быть указано наименование
-    description(product(X), D), not(empty(D)), % должно быть указано описание
-    status(product(X), S), general_status(_, S). % должен быть указан статус из соотвествующего справочника
+    name(product(X), N), string(N), % должно быть указано наименование
+    description(product(X), D), string(D), % должно быть указано описание
+    status(product(X), S), listed(S, general_status). % должен быть указан статус из соотвествующего справочника
 
 % проверка валидности канала (Р05)
 valid(channel(X)):-
     channel(X), % должен быть определен в базе знаний как канал
-    name(channel(X), N), not(empty(N)), % должно быть указано наименование
-    type(channel(X), T), channel_type(_, T), % должен быть указан тип из соотвествующего справочника
+    name(channel(X), N), string(N), % должно быть указано наименование
+    type(channel(X), T), listed(T, channel_type), % должен быть указан тип из соотвествующего справочника
     (   % проверка размещения
         internal(channel(X)), ! % может быть внутренним
         ; external(channel(X)), ! % может быть внешним
         ; fail % иначе завершить проверку с ошибкой
     ),   
-    description(channel(X), D), not(empty(D)), % должно быть указано описание
-    status(channel(X), S), general_status(_, S), % должен быть указан статус из соотвествующего справочника
-    security(channel(X), S), not(empty(S)), % должны быть указаны способы защиты
+    description(channel(X), D), string(D), % должно быть указано описание
+    status(channel(X), S), listed(S, general_status), % должен быть указан статус из соотвествующего справочника
+    security(channel(X), S), string(S), % должны быть указаны способы защиты
     (   % проверка клиентов
         client(channel(X), client(_)) -> % если указаны клиенты, обслуживаемые в канале
         findall(C, client(channel(X), client(C)), LC), forall(member(C, LC), valid(client(C))), ! % все указанные клиенты должны быть валидны
@@ -278,7 +278,7 @@ valid(channel(X)):-
 % проверка валидности группы систем (P12)
 valid(group(X)):-
     group(X), % должна быть определена в базе знаний как группа систем 
-    name(group(X), N), not(empty(N)), % должно быть указано наименование
+    name(group(X), N), string(N), % должно быть указано наименование
     (   % проверка родительской группы
         parent(group(X), group(_)) -> % если указаны родительские группы систем
         findall(G, parent(group(X), group(G)), L), forall(member(G, L), valid(group(G))), ! % все указанные родительские группы систем должны быть валидны
@@ -288,28 +288,28 @@ valid(group(X)):-
 % проверка валидности системы (Р11)
 valid(system(X)):-
     system(X), % должна быть определена в базе знаний как система
-    name(system(X), N), not(empty(N)), % должно быть определено наименование
-    description(system(X), D), not(empty(D)), % должно быть определено описание
+    name(system(X), N), string(N), % должно быть определено наименование
+    description(system(X), D), string(D), % должно быть определено описание
     (   % проверка группы систем
         group(system(X), group(_)) -> % если указаны группы систем
         findall(G, group(system(X), group(G)), LG), forall(member(G, LG), valid(group(G))), ! % все указанные группы систем должны быть валидны
         ; fail % иначе завершить проверку группы с ошибкой
     ), 
-    ownership(system(X), O), system_ownership(_, O), % должна быть степень владения из соотвествующего справочника
-    class(system(X), Cl), system_class(_, Cl), % должен быть указан класс систем из соотвествующего справочника
+    ownership(system(X), O), listed(O, system_ownership), % должна быть степень владения из соотвествующего справочника
+    class(system(X), Cl), listed(Cl, system_class), % должен быть указан класс систем из соотвествующего справочника
     (   % проверка внутренних и внешних систем
         internal(system(X)), % если система указана как внутреняя
-        status(system(X), S), system_status(_, S), % должен быть указан статус системы из соотвествующего справочника (только для внутренних систем)
-        change(system(X), C), change_type(_, C), % должен быть указан тип изменений систем из соотвествующего справочника (только для внутренних сиcтем) 
-        current(system(X), L1), lifecycle(_, L1), % должен быть указан текущий этап ЖЦ системы из соотвествующего справочника (только для внутренних сиcтем) 
-        plan(system(X), P), lifecycle(_, P), % должен быть указан этап ЖЦ системы на горизонт проектирования (только для внутренних сиcтем)
-        level(system(X), L2), criticality(_, L2), % должен быть указан уровень критичности системы из соответствующего справочника (только для внутренних сиcтем)
-        performance(system(X), P), not(empty(P)), % должна быть указана производительность (только для внутренних сиcтем)
-        availability(system(X), A), not(empty(A)), % должна быть указана доступность (только для внутренних сиcтем)
-        rto(system(X), Rto), not(empty(Rto)), % должно быть указано значение RTO (только для внутренних сиcтем)
-        rpo(system(X), Rpo), not(empty(Rpo)), % должно быть указано значение RPO (только для внутренних сиcтем)
-        monitoring(system(X), M), not(empty(M)), % должны быть указаны средства мониторинга (только для внутренних сиcтем)
-        changes(system(X), Ch), not(empty(Ch)), ! % должно быть указано описание изменений (только для внутренних сиcтем) 
+        status(system(X), S), listed(S, system_status), % должен быть указан статус системы из соотвествующего справочника (только для внутренних систем)
+        change(system(X), C), listed(C, change_type), % должен быть указан тип изменений систем из соотвествующего справочника (только для внутренних сиcтем) 
+        current(system(X), L1), listed(L1, lifecycle), % должен быть указан текущий этап ЖЦ системы из соотвествующего справочника (только для внутренних сиcтем) 
+        plan(system(X), P), listed(P, lifecycle), % должен быть указан этап ЖЦ системы на горизонт проектирования (только для внутренних сиcтем)
+        level(system(X), L2), listed(L2, criticality), % должен быть указан уровень критичности системы из соответствующего справочника (только для внутренних сиcтем)
+        performance(system(X), P), string(P), % должна быть указана производительность (только для внутренних сиcтем)
+        availability(system(X), A), string(A), % должна быть указана доступность (только для внутренних сиcтем)
+        rto(system(X), Rto), string(Rto), % должно быть указано значение RTO (только для внутренних сиcтем)
+        rpo(system(X), Rpo), string(Rpo), % должно быть указано значение RPO (только для внутренних сиcтем)
+        monitoring(system(X), M), string(M), % должны быть указаны средства мониторинга (только для внутренних сиcтем)
+        changes(system(X), Ch), string(Ch), ! % должно быть указано описание изменений (только для внутренних сиcтем) 
         ; external(system(X)), ! % если система указана как внешняя - завершить проверку
         ; fail % иначе завершить проверку с ошибкой
     ),
@@ -322,10 +322,10 @@ valid(system(X)):-
 % проверка валидности функциональности (Р10)
 valid(function(X)):-
     function(X), % должна быть определена в базе знаний как функциональность
-    name(function(X), N), not(empty(N)), % должно быть задано наименование
-    description(function(X), D), not(empty(D)), % должно быть задано описание
-    target(function(X), L), target_location(_, L), % должно быть указано целевое размещение из соответсвующего справочника
-    status(function(X), Y), function_status(_, Y), % должен быть указан статус
+    name(function(X), N), string(N), % должно быть задано наименование
+    description(function(X), D), string(D), % должно быть задано описание
+    target(function(X), L), listed(L, target_location), % должно быть указано целевое размещение из соответсвующего справочника
+    status(function(X), Y), listed(Y, function_status), % должен быть указан статус
     (   % проверка систем
         system(function(X), system(_)) -> % если указаны системы, в которых реализована функциональность 
         findall(S, system(function(X), system(S)), LS), forall(member(S, LS), valid(system(S))), ! % все указанные системы должны быть валидны
@@ -335,8 +335,8 @@ valid(function(X)):-
 % проверка валидности бизнес процесса
 valid(process(X)):-
     process(X), % должен быть определен в базе знаний как бизнес процесс
-    name(process(X), N), not(empty(N)), % должно быть указано наименование
-    description(process(X), D), not(empty(D)), % должно быть указано описание
+    name(process(X), N), string(N), % должно быть указано наименование
+    description(process(X), D), string(D), % должно быть указано описание
     (   % проверка обеспечивающих систем
         use(process(X), system(S)) -> % если указаны системы, которые обеспечивают бизнес процесс
         findall(S, use(process(X), system(S)), LS), forall(member(S, LS), valid(system(S))), ! % все указанные системы должны быть валидны
@@ -363,22 +363,22 @@ valid(process(X)):-
 % проверка валидности бизнес объекта (Р07)
 valid(object(X)):-
     object(X), % должен быть определен в базе знаний как бизнес данных
-    name(object(X), N), not(empty(N)), % должно быть задано наименование
-    status(object(X), Y), change_type(_, Y). % должен быть указан статус изменений из соотвествующего справочника
+    name(object(X), N), string(N), % должно быть задано наименование
+    status(object(X), Y), listed(Y, change_type). % должен быть указан статус изменений из соотвествующего справочника
 
 % проверка валидности объекта данных (Р08)
 valid(data(X)):-
     data(X), % должен быть определен в базе знаний как объект данных
-    name(data(X), N), not(empty(N)), % должно быть задано наименование
-    category(data(X), C), data_category(_, C), % должна быть определена категория данных из соответсвующего справочника
-    status(data(X), Y), change_type(_, Y), % должен быть указан статус изменений из соотвествующего справочника
+    name(data(X), N), string(N), % должно быть задано наименование
+    category(data(X), C), listed(C, data_category), % должна быть определена категория данных из соответсвующего справочника
+    status(data(X), Y), listed(Y, change_type), % должен быть указан статус изменений из соотвествующего справочника
     system(data(X), S), valid(system(S)), % должна быть указана валидная мастер система
     parent(data(X), B), valid(object(B)). % должен быть указан валидный родительский бизнес объект  
 
 % проверка валидности интеграционного потока (Р14)
 valid(integration(X)):-
     integration(X), % должен быть определен в базе знаний как интеграционный поток
-    description(integration(X), D), not(empty(D)), % должно быть задано описание
+    description(integration(X), D), string(D), % должно быть задано описание
     source(integration(X), system(Source)), valid(system(Source)), % должна быть указана система источник данных
     destination(integration(X), system(Destination)), valid(system(Destination)), % должна быть указана система потребитель данных
     (   % проверка объектов данных
@@ -386,67 +386,67 @@ valid(integration(X)):-
         findall(B, transmit(integration(X), data(B)), LB), forall(member(B, LB), valid(data(B))), ! % все указанные объекты данных должны быть валидны
        ; fail % иначе ошибка
     ),
-    technology(integration(X), T), not(empty(T)), % должна быть указана технологич интеграции
-    mode(integration(X), M), integration_mode(_, M), % должен быть указан механизм использования из соответсвующего справочника
-    load(integration(X), max(ML), avg(AL)), not(empty(ML)), not(empty(AL)), % должны быть указаны максимальные и средние нагрузочные характеристики
+    technology(integration(X), T), string(T), % должна быть указана технологич интеграции
+    mode(integration(X), M), listed(M, integration_mode), % должен быть указан механизм использования из соответсвующего справочника
+    load(integration(X), max(ML), avg(AL)), string(ML), string(AL), % должны быть указаны максимальные и средние нагрузочные характеристики
     (   % проверка асинхронности интеграционного потока
         synch(integration(X)), ! % поток может быть синхронным
         ; asynch(integration(X)), ! % поток может быть асинхронным
         ; fail % иначе завершить проверку с ошибкой
     ),
-    status(integration(X), S), integration_status(_, S), % должен быть указан статус из соответсвующего справочника
-    security(integration(X), Sec), not(empty(Sec)). % должны быть указаны средства защиты
+    status(integration(X), S), listed(S, integration_status), % должен быть указан статус из соответсвующего справочника
+    security(integration(X), Sec), string(Sec). % должны быть указаны средства защиты
 
 % проверка валидности технического компонента (Р16)
 valid(component(X)):-
     component(X), % должен быть определен в базе знаний как компонент
     system(component(X), system(S)), valid(system(S)), % должена быть задана валидная система
-    type(component(X), T), component_type(_, T), % должен быть указан тип компонента из соответсвующего справочника
-    software(component(X), S), not(empty(S)), % должно быть указано прикладное ПО
-    vendor(component(X), V), not(empty(V)), % должен быть указан вендор
-    scalability(component(X), Sc), component_scalability(_, Sc), % должен быть указан тип масштабируемости
+    type(component(X), T), listed(T, component_type), % должен быть указан тип компонента из соответсвующего справочника
+    software(component(X), S), string(S), % должно быть указано прикладное ПО
+    vendor(component(X), V), string(V), % должен быть указан вендор
+    scalability(component(X), Sc), listed(Sc, component_scalability), % должен быть указан тип масштабируемости
     (   % проверка параметров отказоустойчивости
         ha(component(X), false), ! % если высокая доступность отсуствует
-        ; ha(component(X), type(T1), level(L1)), capacity_type(_, T1), capacity_level(_, L1), ! % если указана высокая доступность, то должны быть корректно указаны тип и полнота резервирования
+        ; ha(component(X), type(T1), level(L1)), listed(T1, capacity_type), listed(L1, capacity_level), ! % если указана высокая доступность, то должны быть корректно указаны тип и полнота резервирования
         ; fail % иначе завершить проверку с ошибкой
     ),
     (   % проверка параметров катастрофоустойчивости
         dr(component(X), false), ! % если катастрофоустойчивость отсуствует
-        ; dr(component(X), type(T2), level(L2)), capacity_type(_, T2), capacity_level(_, L2), ! % если указана катастрофоустойчивость, то должны быть корректно указаны тип и полнота резервирования
+        ; dr(component(X), type(T2), level(L2)), listed(T2, capacity_type), listed(L2, capacity_level), ! % если указана катастрофоустойчивость, то должны быть корректно указаны тип и полнота резервирования
         ; fail % иначе завершить проверку с ошибкой
     ),
     (   % проверка параметров бэкапирования
         backup(component(X), false), ! % если бэкапирование отсутсвует
-        ; backup(component(X), location(L3), duplicate(L4)), backup_location(_, L3), backup_location(_, L4), ! % если указано бэкапирование, то должны быть корректно указаны место хранения основной копии и дубликата
+        ; backup(component(X), location(L3), duplicate(L4)), listed(L3, backup_location), listed(L4, backup_location), ! % если указано бэкапирование, то должны быть корректно указаны место хранения основной копии и дубликата
         ; fail % иначе завершить проверку с ошибкой
     ),
-    monitoring(component(X), M), not(empty(M)). % должен быть указан ммониторинг
+    monitoring(component(X), M), string(M). % должен быть указан ммониторинг
 
 % проверка валидности системы КБ (Р13)
 valid(security(X)):-
     security(X), % должна быть определена в базе знаний как системы КБ
-    name(security(X), N), not(empty(N)), % должно быть указано наименование
-    description(security(X), D), not(empty(D)), % должно быть указано описание
-    class(security(X), C), security_class(_, C), % должен быть указан класс систем КБ из соответсвующего справочника
+    name(security(X), N), string(N), % должно быть указано наименование
+    description(security(X), D), string(D), % должно быть указано описание
+    class(security(X), C), listed(C, security_class), % должен быть указан класс систем КБ из соответсвующего справочника
     (   % проверка размещения
         internal(security(X)), ! % может быть указана как внутреняя
         ; external(security(X)), ! % может быть указана как внешняя
         ; fail % иначе завершить проверку с ошибкой
     ),
-    status(security(X), S), general_status(_, S). % должен быть указан статус из соответсвующего справочника
+    status(security(X), S), listed(S, general_status). % должен быть указан статус из соответсвующего справочника
 
 % проверка валидности технологического сервиса (Р15)
 valid(service(X)):-
     service(X), % должен быть определен в базе знаний как технологический сервис
-    name(service(X), N), not(empty(N)), % должно быть указано наименование
-    description(service(X), D), not(empty(D)), % должно быть указано описание
-    class(service(X), C), service_class(_, C), % должен быть указан класс технологического сервиса из соответсвующего справочника
+    name(service(X), N), string(N), % должно быть указано наименование
+    description(service(X), D), string(D), % должно быть указано описание
+    class(service(X), C), listed(C, service_class), % должен быть указан класс технологического сервиса из соответсвующего справочника
     (   % проверка размещения
         internal(service(X)), ! % может быть указан как внутренний
         ; external(service(X)), ! % может быть указан как внешний
         ; fail % иначе завершить проверку с ошибкой
     ),
-    status(service(X), S), general_status(_, S). % должен быть указан статус из соответсвующего справочника
+    status(service(X), S), listed(S, general_status). % должен быть указан статус из соответсвующего справочника
 
 % анализ системы КБ (P13)
 explain(security(X)):-
@@ -798,13 +798,19 @@ explain(process(X)):-
         ; write(" не определен"), nl % иначе сообщить об ошибке
     ).
 
-not(empty(X)):-
-     string(X), string_length(X, Y), Y>0. 
+% значение X является непустой строкой
+string(X):-
+    string(X), string_length(X, Y), Y>0.    
 
+% значение X является положительным числом (целым или дробным)
 positive(X):-
     number(X), X>0.
 
-% Проверка параметра типа строка
+% значение X определено в справочнике L
+listed(X, L):-
+    call(L, _, X).
+
+% Анализ параметра Т, значение Х которого должно быть строкой
 string(T, X):-
     (
         call(T, X, V) ->
@@ -822,7 +828,7 @@ string(T, X):-
         ; write("Ошибка: отсутствует обязательный параметр "), write(T), nl
     ).
 
-% Проверка параметра типа число
+% Анализ параметра T, значение X которого должно быть положительным числом
 positive(T, X):-
     (
         call(T, X, V) ->
@@ -840,7 +846,7 @@ positive(T, X):-
         ; write("Ошибка: отсутствует обязательный параметр "), write(T), nl
     ).
 
-% Проверка параметра типа справочник
+% Анализ параметра T, значение X которого должно быть из справочника L
 list(T, X, L):-
     (
         call(T, X, V) ->
@@ -850,6 +856,6 @@ list(T, X, L):-
             write("Значение обязательного параметра "), write(T), write(" ok"), !
             ; write("Ошибка: значение справочника задано неверно "), write(V), nl
         ), !
-        ; write("Ошибка: отсутствует обязательный параметр "), write(V), nl
+        ; write("Ошибка: отсутствует обязательный параметр "), write(T), nl
     ), nl.
 
