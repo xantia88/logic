@@ -72,15 +72,25 @@ internal(channel(channel1)).
 description(channel(channel1), "this is channel 1 description").
 status(channel(channel1), "Создается").
 security(channel(channel1), "SSL").
-product(channel(channel1), product(product1)).
-product(channel(channel1), product(product2)).
-client(channel(channel1), client(client1)).
-client(channel(channel1), client(client2)).
+%product(channel(channel1), product(product1)).
+%product(channel(channel1), product(product2)).
+%client(channel(channel1), client(client1)).
+%client(channel(channel1), client(client2)).
+system(channel(channel1), system(system1)).
 
 % Группы (Р12)
 % ----------------------------------------------------------------------
+
+group(group0).
+name(group(group0), "this is group 0 name").
+group(group00).
+name(group(group00), "this is group 0 name").
+
 group(group1).
 name(group(group1), "this is group 1 name").
+parent(group(group1), group(group0)).
+parent(group(group1), group(group00)).
+%parent(group(group1), group(group1)).
 
 group(group2).
 name(group(group2), "this is group 2 name").
@@ -100,7 +110,7 @@ parent(group(group4), group(group3)).
 system(system1).
 name(system(system1), "this is system 1 name").
 description(system(system1), "this is system 1 description").
-group(system(system1), group(group4)).
+group(system(system1), group(group1)).
 ownership(system(system1), "Используем как сервис (SaaS)").
 class(system(system1), "Класс 1").
 external(system(system1)).
@@ -121,7 +131,7 @@ group(system(system33), group(group4)).
 ownership(system(system33), "Используем как сервис (SaaS)").
 class(system(system33), "Класс 1").
 external(system(system33)).
-parent(system(system33), system(system22)).
+parent(system(system33), system(system1)).
 
 system(system2).
 name(system(system2), "this is system 2 name").
