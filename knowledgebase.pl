@@ -105,6 +105,24 @@ ownership(system(system1), "Используем как сервис (SaaS)").
 class(system(system1), "Класс 1").
 external(system(system1)).
 
+system(system22).
+name(system(system22), "this is system 1 name").
+description(system(system22), "this is system 1 description").
+group(system(system22), group(group4)).
+ownership(system(system22), "Используем как сервис (SaaS)").
+class(system(system22), "Класс 1").
+external(system(system22)).
+parent(system(system22), system(system1)).
+
+system(system33).
+name(system(system33), "this is system 1 name").
+description(system(system33), "this is system 1 description").
+group(system(system33), group(group4)).
+ownership(system(system33), "Используем как сервис (SaaS)").
+class(system(system33), "Класс 1").
+external(system(system33)).
+parent(system(system33), system(system22)).
+
 system(system2).
 name(system(system2), "this is system 2 name").
 description(system(system2), "this is system 2 description").
