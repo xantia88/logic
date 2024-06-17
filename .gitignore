@@ -1,4 +1,5 @@
 *.swp
 test/model.pl
 test/knowledgebase.pl
+gigachat/config.ini
 

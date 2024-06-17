@@ -2,33 +2,34 @@ import requests
 import uuid
 import json
 import urllib.parse
+import configparser
 
-def getToken(auth_data):
+# ----------------------------------------------
+def getToken(config):
     
     payload='scope=GIGACHAT_API_PERS'
     headers = {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Accept': 'application/json',
         'RqUID': str(uuid.uuid4()),
-        'Authorization': 'Basic {}'.format(auth_data)
+        'Authorization': 'Basic {}'.format(config["auth_data"])
     }
 
-    url = "https://ngw.devices.sberbank.ru:9443/api/v2/oauth"
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", config["auth_url"], headers=headers, data=payload)
     data = json.loads(response.text)
     
     return data["access_token"]
-
-def getResponse(auth_data, text, question):
+# ----------------------------------------------
+def getResponse(config, language, question):
    
-    token = getToken(auth_data)
+    token = getToken(config)
 
     payload = json.dumps({
         "model": "GigaChat",
         "messages": [
             {
                 "role": "user",
-                "content": "{}{}".format(text, question) 
+                "content": "{}{}".format(language, question) 
             }
         ],
         "temperature": 1,
@@ -45,16 +46,21 @@ def getResponse(auth_data, text, question):
         'Authorization': 'Bearer {}'.format(token)
     }
 
-    url = "https://gigachat.devices.sberbank.ru/api/v1/chat/completions"
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", config["request_url"], headers=headers, data=payload)
     
     return response.text
+# ----------------------------------------------
+def getLanguage(config):
+    language = None
+    with open(config["language"]) as file:
+        language = file.read()
+    return language
+# ----------------------------------------------
 
-auth_data = "ODYyOWE4MWUtZDU2NS00MzI1LWE0MzItNzZmNDNmYjBiYTczOjQ4ZTFjMGZhLTM5ZDgtNDk4Mi1iMjVjLWU2NjgyMzBmMzgyOQ=="
-
-language = None
-with open("language.txt") as file:
-    language = file.read()
+config = configparser.ConfigParser()
+config.read("config.ini")
+gcConfig = config["GIGACHAT"]
+language = getLanguage(gcConfig)
 
 questions = [
     "Задача 123 в находится статусе запланировано, и еще она реализует стратегию 567, и еще она имеет описание 567. как это написать на языке ДКА ?",
@@ -64,15 +70,15 @@ questions = [
     "перепиши текст на языке ДКА: задача с кодом 1 отменена, она имеет описание 5, срок ее реализации 123, она связана со стратегией XXX. ",
     "task(123). description(task(123), 'тут описание'). deadline(task(123), '22.01.2024'). realize(task(123), strategy(567)). это код на языке ДКА, переведи его на русский и исключи из ответа сам код",
     "задача с кодом 1 отменена, она имеет описание 5, срок ее реализации 123, она связана со стратегией XXX. какая информация в этом тексте относится к стратегии на языке ДКА ?",
-    "task(123). description(task(123), 'тут описание'). deadline(task(123), '22.01.2024'). realize(task(123), strategy(567)). какая информация в этом тексте относится к стратегии на языке ДКА ?",
-    "текст на языке ДКА c полным описанием задачи: status(task(1), xxx). задача описана полностью ? покажи все ошибки"
+    "task(123). description(task(123), 'тут описание'). deadline(task(123), '22.01.2024'). realize(task(123), strategy(567)). это текст на языке ДКА. какая информация в этом тексте относится к стратегии?"
+    #"текст на языке ДКА c полным описанием задачи: status(task(1), xxx). задача описана полностью ? покажи все ошибки"
     ]
 
 for question in questions:
     print("---------------------")
     print("[ Request  > ]", question)
     print("---------------------")
-    response = getResponse(auth_data, language, question)
+    response = getResponse(gcConfig, language, question)
     response = json.loads(response)
     response = response["choices"][0]["message"]["content"]
     print("[ GigaChat < ]", response)
