@@ -21,7 +21,7 @@ realize(strategy(strategy1), goal(goal1)).
 strategy(strategy2).
 description(strategy(strategy2), "strategy 2 description here").
 horizon(strategy(strategy2), "2024Q3").
-realize(strategy(strategy2), goal(goal1)).
+realize(strategy(strategy2), goal(goal2)).
 
 % Задачи и планы (Р09)
 % ----------------------------------------------------------------------
@@ -147,7 +147,7 @@ plan(system(system2), "Промышленная эксплуатация").
 level(system(system2), "Business Critical").
 performance(system(system2), "performance here").
 availability(system(system2), "availablity here").
-%rto(system(system2), "24").
+rto(system(system2), "24").
 rpo(system(system2), "20").
 monitoring(system(system2), "monitoring here").
 changes(system(system2), "changes here").
