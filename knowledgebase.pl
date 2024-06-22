@@ -9,6 +9,7 @@ horizon(goal(goal1), "").
 
 goal(goal2).
 description(goal(goal2), "zzz").
+description(goal(goal2), "zzz").
 horizon(goal(goal2), "zzz").
 
 % Стратегические задачи (Р02)
@@ -147,7 +148,7 @@ plan(system(system2), "Промышленная эксплуатация").
 level(system(system2), "Business Critical").
 performance(system(system2), "performance here").
 availability(system(system2), "availablity here").
-rto(system(system2), "24").
+%rto(system(system2), "24").
 rpo(system(system2), "20").
 monitoring(system(system2), "monitoring here").
 changes(system(system2), "changes here").
