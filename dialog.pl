@@ -29,6 +29,7 @@ answer("yes"):-
     question("components1"), assertz(components(1)), write(saved), nl, 
     not(question("tight1")), assertz(tight(1)).
 
+%
 answer("no"):-
     not(components(1)).
 %    (
