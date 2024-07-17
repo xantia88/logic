@@ -4,7 +4,7 @@ KBASE_FILE = "kbase.csv"
 def clean(fileName):
     with open(fileName, "w") as file:
         file.write("{},{}\n".format("Question", "Answer"))
-        print("Knowledge base file cleaned [{}]".format(KBASE_FILE))
+        print("Knowledge base file cleaned [{}]".format(fileName))
 
 def save(fileName, question, answer):
     with open(fileName, "a") as file:
@@ -255,7 +255,7 @@ def mobile():
     ask("На платформе Apple iOS")
 
 clean(KBASE_FILE)
-
+dialog()
 
 
 
